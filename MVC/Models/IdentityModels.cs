@@ -22,9 +22,9 @@ namespace MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("PladespillerenConnection", throwIfV1Schema: false)
+            : base("AuthConnection", throwIfV1Schema: false)
         {
-            // Database.SetInitializer(new ApplicationDbInitializer());
+            Database.SetInitializer(new ApplicationDbInitializer());
         }
 
         public static ApplicationDbContext Create()
@@ -33,48 +33,31 @@ namespace MVC.Models
         }
     }
 
-    // custom User & Role initialization
+    // Custom user & role initialization
     public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            //var UserManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(context));
-            //var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            string role = "Admin";
+            string user = "JohnDoe";
 
-            //string role = "Admin";
-            //string name = "John Doe";
-            //string eMail = "john@doe.dk";
-            //string password = "password";
-
-            //var user = new IdentityUser();
-
-            //user.UserName = name;
-            //user.Email = eMail;
-
-            //user.Roles.Add(new IdentityUserRole() { });
-            //UserManager.Create(user, password);
-
-            //RoleManager.Create(new IdentityRole(role));
-
-            //UserManager.AddToRole(user.Id, role);
-
-            if (!context.Roles.Any(r => r.Name == "Admin"))
+            if (!context.Roles.Any(r => r.Name == role))
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
-                var identityRole = new IdentityRole {Name = "Admin"};
+                var identityRole = new IdentityRole { Name = role };
 
                 roleManager.Create(identityRole);
             }
-            
-            if (!context.Users.Any(u => u.UserName == "JohnDoe"))
+
+            if (!context.Users.Any(u => u.UserName == user))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
-                var applicationUser = new ApplicationUser {UserName = "JohnDoe", Email = "john@doe.com"};
+                var applicationUser = new ApplicationUser { UserName = user, Email = "john@doe.com" };
 
                 userManager.Create(applicationUser, "password");
-                userManager.AddToRole(applicationUser.Id, "Admin");
+                userManager.AddToRole(applicationUser.Id, role);
             }
 
             base.Seed(context);
