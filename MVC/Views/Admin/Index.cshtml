@@ -1,0 +1,12 @@
+﻿@model MVC.Models.AdminViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("ArtistIndex", Model.Artists)
+
+<hr />
+
+@Html.Partial("GenreIndex", Model.Genres)
