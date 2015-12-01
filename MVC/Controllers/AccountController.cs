@@ -79,7 +79,11 @@ namespace MVC.Controllers
             // Find the incoming user by their email.
             var user = UserManager.FindByEmail(model.Email);
             // Use their user name to login instead of email, which is used by default.
-            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInStatus.Failure;
+            if (user != null)
+            {
+                result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            }
             switch (result)
             {
                 case SignInStatus.Success:
