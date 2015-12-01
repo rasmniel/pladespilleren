@@ -14,7 +14,9 @@ namespace DAL.Db
         {
             Vinyl vinyl = new Vinyl()
             {
+                Artist = new Artist() {Name = "Metallica"},
                 Name = "...And Justice For All",
+                Genre = new Genre() { Name = "Thrash Metal"},
                 Price = 139,
                 Year = 1988
             };

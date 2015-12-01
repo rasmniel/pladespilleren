@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DALFacade.cs" />
     <Compile Include="Db\PladespillerenDbContext.cs" />
     <Compile Include="Db\PladespillerenDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

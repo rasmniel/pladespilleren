@@ -15,12 +15,18 @@ namespace DAL.Repositories
 
         public Vinyl Read(int? id)
         {
-            return db.Vinyls.FirstOrDefault(vinyl => vinyl.Id == id);
+            return db.Vinyls
+                .Include(vinyl => vinyl.Artist)
+                .Include(vinyl => vinyl.Genre)
+                .FirstOrDefault(vinyl => vinyl.Id == id);
         }
 
         public IEnumerable<Vinyl> ReadAll()
         {
-            return db.Vinyls.ToList();
+            return db.Vinyls
+                .Include(vinyl => vinyl.Artist)
+                .Include(vinyl => vinyl.Genre)
+                .ToList();
         }
 
         public bool Create(Vinyl entity)

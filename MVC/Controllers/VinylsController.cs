@@ -1,13 +1,14 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using BE;
+using DAL;
 using DAL.Repositories;
 
 namespace MVC.Controllers
 {
     public class VinylsController : Controller
     {
-        VinylRepository vinylRepository = new VinylRepository();
+        private readonly VinylRepository vinylRepository = DALFacade.GetVinylRepository();
 
         // GET: Vinyls
         public ActionResult Index()
