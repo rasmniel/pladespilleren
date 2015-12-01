@@ -33,6 +33,6 @@ namespace BE
             {
                 ErrorMessage = "Year must be after 1900 & before " + ThisYear+1;
             }
-        };
+        }
     }
 }
