@@ -22,5 +22,9 @@ namespace DAL.Db
         }
 
         public DbSet<BE.Vinyl> Vinyls { get; set; }
+
+        public DbSet<BE.Artist> Artists { get; set; }
+
+        public DbSet<BE.Genre> Genres { get; set; }
     }
 }
