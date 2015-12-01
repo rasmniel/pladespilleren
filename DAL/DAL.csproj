@@ -52,11 +52,8 @@
     <Compile Include="Db\PladespillerenDbContext.cs" />
     <Compile Include="Db\PladespillerenDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
     <Compile Include="Repositories\GenreRepository.cs" />
-=======
     <Compile Include="Repositories\ArtistRepository.cs" />
->>>>>>> f586f9e7147354281cfdaea6c965914272742723
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\VinylRepository.cs" />
   </ItemGroup>
