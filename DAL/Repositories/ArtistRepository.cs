@@ -9,7 +9,7 @@ using DAL.Db;
 
 namespace DAL.Repositories
 {
-    class ArtistRepository : IRepository<Artist>
+    public class ArtistRepository : IRepository<Artist>
     {
         private readonly PladespillerenDbContext db = new PladespillerenDbContext();
 
