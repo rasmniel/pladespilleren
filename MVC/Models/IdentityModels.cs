@@ -22,7 +22,7 @@ namespace MVC.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("AuthConnection", throwIfV1Schema: false)
+            : base("PladespillerenConnection", throwIfV1Schema: false)
         {
             Database.SetInitializer(new ApplicationDbInitializer());
         }
@@ -34,7 +34,7 @@ namespace MVC.Models
     }
 
     // Custom user & role initialization
-    public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationDbInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
