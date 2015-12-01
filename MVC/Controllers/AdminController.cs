@@ -1,4 +1,6 @@
 ﻿using BE;
+using DAL;
+using DAL.Repositories;
 using MVC.Models;
 using System;
 using System.Collections.Generic;
@@ -10,12 +12,14 @@ namespace MVC.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Admin
+        private readonly GenreRepository GenreRepo = DALFacade.GetGenreRepository();
+        private readonly ArtistRepository ArtistRepo = DALFacade.GetArtistRepository();
+
         public ActionResult Index()
         {
             AdminViewModel model = new AdminViewModel();
-            model.Artists = new List<Artist>();
-            model.Genres = new List<Genre>();
+            model.Artists = ArtistRepo.ReadAll();
+            model.Genres = GenreRepo.ReadAll();
             return View(model);
         }
     }
