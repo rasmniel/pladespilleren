@@ -15,6 +15,7 @@ namespace BE
         [YearRange]
         public int Year { get; set; }
 
+        [Display(Name = "Price (Dkk)")]
         [Range(50, 1000, ErrorMessage = "Price must be between 50 & 1000")]
         public int Price { get; set; }
 

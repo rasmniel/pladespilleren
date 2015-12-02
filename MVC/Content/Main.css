@@ -1,0 +1,78 @@
+﻿body {
+    background-image: url('/pictures/Wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+* {
+    font-size: 1.05em;
+}
+
+p {
+    color: ghostwhite;
+}
+
+th, a {
+    color: greenyellow;
+}
+
+    a:hover {
+        color: greenyellow;
+        text-decoration: none;
+        border-radius: 50%;
+    }
+
+div {
+    color: ghostwhite;
+}
+
+.account-icon {
+    margin: 0;
+    height: 4em;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    border: 0.2em solid greenyellow;
+    padding: 0.2em;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+    .account-icon:hover {
+        -webkit-transform: rotate(-20deg);
+        -moz-transform: rotate(-20deg);
+        -o-transform: rotate(-20deg);
+        -ms-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+    }
+
+.bar {
+    height: 3em;
+    width: 100%;
+    background-color: whitesmoke;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+}
+
+    footer p {
+        color: black;
+        width: 100%;
+        position: relative;
+        top: 0.7em;
+        text-align: center;
+    }
+
+#pladespiller {
+    position: fixed;
+    bottom: 1em;
+    right: 0.5em;
+    width: 25em;
+    opacity: 0.2;
+}
