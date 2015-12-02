@@ -2,7 +2,7 @@
 
 namespace BE
 {
-    public class Artist
+    public class Artist : INameable
     {
         [Key]
         public int Id { get; set; }

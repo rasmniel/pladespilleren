@@ -2,7 +2,7 @@
 
 namespace BE
 {
-    public class Genre
+    public class Genre : INameable
     {
         [Key]
         public int Id { get; set; }

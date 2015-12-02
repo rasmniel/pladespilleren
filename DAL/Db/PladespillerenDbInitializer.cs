@@ -12,15 +12,25 @@ namespace DAL.Db
     {
         protected override void Seed(PladespillerenDbContext context)
         {
-            Vinyl vinyl = new Vinyl()
-            {
-                Artist = new Artist() {Name = "Metallica"},
-                Name = "...And Justice For All",
-                Genre = new Genre() { Name = "Thrash Metal"},
-                Price = 139,
-                Year = 1988
+            List<Vinyl> vinyls = new List<Vinyl>() {
+                new Vinyl() {
+                    Artist = new Artist() { Name = "Metallica" },
+                    Name = "...And Justice For All",
+                    Genre = new Genre() { Name = "Thrash Metal" },
+                    Price = 139,
+                    Year = 1988
+                },
+                new Vinyl()
+                {
+                    Artist = new Artist() { Name = "Cannibal Corpse" },
+                    Name = "Tomb of the Mutilated",
+                    Genre = new Genre { Name = "Death Metal" },
+                    Price = 149,
+                    Year = 1992
+                }
             };
-            context.Vinyls.Add(vinyl);
+
+            context.Vinyls.AddRange(vinyls);
             base.Seed(context);
         }
     }

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BE.INameable>
+
+@{
+    var type = "Empty";
+    if (Model.Any())
+    {
+        type = Model.First().GetType().Name;
+    }
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @type
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete" + type, new { id = item.Id })
+            </td>
+        </tr>
+    }
+    @using (Html.BeginForm("Create" + type, "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <tr>
+            <td>
+                <input col="5" type="text" name="Name" />
+            </td>
+            <td>
+                <input class="btn btn-default" type="submit" value="Create" />
+            </td>
+        </tr>
+    }
+</table>
+

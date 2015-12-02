@@ -26,6 +26,14 @@ namespace DAL.Repositories
                 .ToList();
         }
 
+        public IEnumerable<Vinyl> ReadBrokenVinyls()
+        {
+            return db.Vinyls
+                .Include(vinyl => vinyl.Artist)
+                .Include(vinyl => vinyl.Genre)
+                .Where(vinyl => vinyl.Artist == null || vinyl.Genre == null);
+        }
+
         public bool Create(Vinyl entity)
         {
             db.Vinyls.Add(entity);
