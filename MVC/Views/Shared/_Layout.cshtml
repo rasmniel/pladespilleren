@@ -6,40 +6,37 @@
     <title>@ViewBag.Title - Pladespilleren</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <style>
-        .firmalogo {
-            height: 4em;
-        }
-    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="bar navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <img class="firmalogo" src="~/pictures/Firmalogo.png"/>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Vinyls", "Index", "Vinyls")</li>
-                    <li>@Html.ActionLink("About", "About", "Vinyls")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Vinyls")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
-    <div class="container body-content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
         @RenderBody()
         <hr />
-        <footer>
-            <p>Pladespilleren &copy; 2015</p>
-        </footer>
     </div>
+    <img id="pladespiller" src="/pictures/Firmalogo.png" />
+    <footer class="bar">
+        <div class="container">
+            <p>Pladespilleren &copy; 2015</p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
