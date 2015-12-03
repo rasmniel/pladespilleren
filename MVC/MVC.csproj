@@ -193,8 +193,11 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="pictures\Firmalogo.png" />
+    <Content Include="pictures\Firmalogo2.png" />
     <Content Include="pictures\Sign-In.png" />
+    <Content Include="pictures\Sign-Out.png" />
     <Content Include="pictures\Sign-Up.png" />
+    <Content Include="pictures\Signed-In.png" />
     <Content Include="pictures\Wallpaper.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

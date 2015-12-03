@@ -52,27 +52,42 @@ div {
 .bar {
     height: 3em;
     width: 100%;
-    background-color: whitesmoke;
     background: rgba(255, 255, 255, 0.2);
 }
 
-footer {
+.footerbar {
     position: fixed;
     bottom: 0;
+    background: #4d4d4d;
 }
 
     footer p {
         color: black;
         width: 100%;
         position: relative;
-        top: 0.7em;
         text-align: center;
+        top: -0.1em;
     }
 
 #pladespiller {
     position: fixed;
-    bottom: 1em;
+    bottom: 3.7em;
     right: 0.5em;
     width: 25em;
     opacity: 0.2;
+}
+
+#Vinyler {
+    position: fixed;
+    bottom: 3.6em;
+    left: -17.3em;
+    width: 33em;
+    opacity: 0.5;
+}
+
+#logged-in-name {
+    float: right;
+    font-family: monospace;
+    font-style: italic;
+    font-size: 1.2em;
 }

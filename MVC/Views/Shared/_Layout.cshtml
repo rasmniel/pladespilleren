@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +9,16 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="bar navigation">
+    <div class="bar">
+
+        <div id="logged-in-name">
+            @if (!User.Identity.GetUserName().IsEmpty())
+            {
+                @("Logged in as: " + User.Identity.GetUserName())
+            }
+        </div>
+
+
         <div class="container">
             @Html.Partial("_LoginPartial")
         </div>
@@ -32,9 +42,11 @@
         <hr />
     </div>
     <img id="pladespiller" src="/pictures/Firmalogo.png" />
-    <footer class="bar">
+    <img id="Vinyler" src="/pictures/Firmalogo2.png" />
+    <footer class="bar footerbar">
         <div class="container">
-            <p>Pladespilleren &copy; 2015</p>
+            <div>
+                <p>Copyright &copy; 2015 Pladespilleren. Alle rettigheder forbeholdes.<br><span style="color: grey; font-family: monospace;font-size: 1em">Rasmus Nielsen & Hardy Drachmann</span></p></div>
         </div>
     </footer>
 

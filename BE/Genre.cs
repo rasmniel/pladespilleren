@@ -8,7 +8,7 @@ namespace BE
         public int Id { get; set; }
 
         [Display(Name = "Genre")]
-        [StringLength(20, ErrorMessage = "Genre name must be below 20 characters")]
+        [StringLength(25, ErrorMessage = "Genre name must be below 25 characters")]
         public string Name { get; set; }
     }
 }
