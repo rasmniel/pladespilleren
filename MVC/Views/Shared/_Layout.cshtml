@@ -17,30 +17,15 @@
                 @("Logged in as: " + User.Identity.GetUserName())
             }
         </div>
-
-
         <div class="container">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="container">
+    <div class="content container">
         @RenderBody()
-        <hr />
     </div>
+
     <img id="pladespiller" src="/pictures/Firmalogo.png" />
     <img id="Vinyler" src="/pictures/Firmalogo2.png" />
     <footer class="bar footerbar">

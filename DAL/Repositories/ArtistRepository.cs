@@ -23,25 +23,23 @@ namespace DAL.Repositories
             return db.Artists.ToList();
         }
 
-        public bool Create(Artist entity)
+        public Artist Create(Artist entity)
         {
             db.Artists.Add(entity);
             db.SaveChanges();
-            return true;
+            return entity;
         }
 
-        public bool Delete(Artist entity)
+        public void Delete(Artist entity)
         {
             db.Artists.Remove(entity);
             db.SaveChanges();
-            return true;
         }
 
-        public bool Update(Artist entity)
+        public void Update(Artist entity)
         {
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
-            return true;
         }
 
         public void Dispose()

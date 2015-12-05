@@ -3,6 +3,8 @@ using System.Data.Entity;
 using System.Linq;
 using BE;
 using DAL.Db;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
 
 namespace DAL.Repositories
 {
@@ -34,25 +36,50 @@ namespace DAL.Repositories
                 .Where(vinyl => vinyl.Artist == null || vinyl.Genre == null);
         }
 
-        public bool Create(Vinyl entity)
+        public Vinyl Create(Vinyl entity)
         {
             db.Vinyls.Add(entity);
             db.SaveChanges();
-            return true;
+            return entity;
         }
 
-        public bool Delete(Vinyl entity)
+        public void Delete(Vinyl entity)
         {
             db.Vinyls.Remove(entity);
             db.SaveChanges();
-            return true;
         }
 
-        public bool Update(Vinyl entity)
+        public void Update(Vinyl entity)
         {
+            db.Vinyls.Attach(entity);
+            Vinyl existing = db.Vinyls.AsNoTracking()
+                .Include(vinyl => vinyl.Artist)
+                .Include(vinyl => vinyl.Genre)
+                .Where(v => v.Id == entity.Id).FirstOrDefault();
+            ObjectStateManager stateManager = ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager;
+            if (entity.Artist != null)
+            {
+                if (existing.Artist == null || (existing.Artist != null && entity.Artist.Id != existing.Artist.Id))
+                {
+                    stateManager.ChangeRelationshipState(entity, entity.Artist, v => v.Artist, EntityState.Added);
+                }
+            }
+            if (entity.Genre != null)
+            {
+                if (existing.Genre == null || (existing.Genre != null && entity.Genre.Id != existing.Genre.Id))
+                {
+                    stateManager.ChangeRelationshipState(entity, entity.Genre, v => v.Genre, EntityState.Added);
+                }
+            }
             db.Entry(entity).State = EntityState.Modified;
-            db.SaveChanges();
-            return true;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Catching to avoid app-crash - implement changing an existing genre/artist for vinyl entity...
+            }
         }
 
         public void Dispose()

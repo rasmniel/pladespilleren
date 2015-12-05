@@ -9,10 +9,10 @@ namespace DAL.Repositories
 
         IEnumerable<T> ReadAll();
 
-        bool Create(T entity);
+        T Create(T entity);
 
-        bool Delete(T entity);
+        void Delete(T entity);
 
-        bool Update(T entity);
+        void Update(T entity);
     }
 }

@@ -20,25 +20,23 @@ namespace DAL.Repositories
             return db.Genres.ToList();
         }
 
-        public bool Create(Genre entity)
+        public Genre Create(Genre entity)
         {
             db.Genres.Add(entity);
             db.SaveChanges();
-            return true;
+            return entity;
         }
 
-        public bool Delete(Genre entity)
+        public void Delete(Genre entity)
         {
             db.Genres.Remove(entity);
             db.SaveChanges();
-            return true;
         }
 
-        public bool Update(Genre entity)
+        public void Update(Genre entity)
         {
             db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
-            return true;
         }
 
         public void Dispose()

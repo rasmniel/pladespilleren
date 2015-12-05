@@ -116,11 +116,15 @@ namespace MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Year,Price")] Vinyl vinyl)
+        public ActionResult Edit([Bind(Include = "Id,Name,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
             if (ModelState.IsValid)
             {
-                VinylRepo.Update(vinyl); 
+                Artist a = ArtistRepo.Read(artistId);
+                vinyl.Artist = a;
+                Genre g = GenreRepo.Read(genreId);
+                vinyl.Genre = g;
+                VinylRepo.Update(vinyl);
             }
             return RedirectToAction("Index");
         }
@@ -131,6 +135,7 @@ namespace MVC.Controllers
             {
                 ArtistRepo.Dispose();
                 GenreRepo.Dispose();
+                VinylRepo.Dispose();
             }
             base.Dispose(disposing);
         }
