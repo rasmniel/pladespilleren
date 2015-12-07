@@ -36,6 +36,14 @@ namespace DAL.Repositories
                 .Where(vinyl => vinyl.Artist == null || vinyl.Genre == null);
         }
 
+        public IEnumerable<Vinyl> ReadGoodVinyls()
+        {
+            return db.Vinyls
+                .Include(vinyl => vinyl.Artist)
+                .Include(vinyl => vinyl.Genre)
+                .Where(vinyl => vinyl.Artist != null && vinyl.Genre != null);
+        }
+
         public Vinyl Create(Vinyl entity)
         {
             db.Vinyls.Add(entity);
@@ -61,7 +69,7 @@ namespace DAL.Repositories
             {
                 if (existing.Artist == null || (existing.Artist != null && entity.Artist.Id != existing.Artist.Id))
                 {
-                    stateManager.ChangeRelationshipState(entity, entity.Artist, v => v.Artist, EntityState.Added);
+                    stateManager.ChangeRelationshipState(entity, entity.Artist, e => e.Artist, EntityState.Added);
                 }
             }
             if (entity.Genre != null)

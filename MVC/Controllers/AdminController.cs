@@ -16,10 +16,44 @@ namespace MVC.Controllers
         public ActionResult Index()
         {
             AdminViewModel model = new AdminViewModel();
+            model.BrokenVinyls = VinylRepo.ReadBrokenVinyls();
             model.Artists = ArtistRepo.ReadAll();
             model.Genres = GenreRepo.ReadAll();
-            model.BrokenVinyls = VinylRepo.ReadBrokenVinyls();
+            model.AllVinyls = VinylRepo.ReadGoodVinyls();
             return View(model);
+        }
+
+        [ActionName("Create")] // Make CreateViewModel and add Genres and Artists to it.
+        public ActionResult CreateVinyl()
+        {
+            return View();
+        }
+
+        [HttpPost] // TODO: Make this create method better...
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,Year,Price")] Vinyl vinyl)
+        {
+            if (ModelState.IsValid)
+            {
+                VinylRepo.Create(vinyl);
+                return RedirectToAction("Index");
+            }
+
+            return View(vinyl);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vinyl vinyl = VinylRepo.Read(id);
+            if (vinyl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vinyl);
         }
 
         [HttpPost]
@@ -126,6 +160,29 @@ namespace MVC.Controllers
                 vinyl.Genre = g;
                 VinylRepo.Update(vinyl);
             }
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vinyl vinyl = VinylRepo.Read(id);
+            if (vinyl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vinyl);
+        }
+        
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Vinyl vinyl = VinylRepo.Read(id);
+            VinylRepo.Delete(vinyl);
             return RedirectToAction("Index");
         }
 
