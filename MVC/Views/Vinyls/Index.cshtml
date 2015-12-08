@@ -47,9 +47,9 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
+                @Html.ActionLink("Buy", "Buy") @*add route values and view*@
             </td>
         </tr>
     }
-
 </table>
