@@ -20,7 +20,14 @@
             @Html.DisplayNameFor(model => model.Year)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            @if (User.IsInRole("Company"))
+            {
+                @Html.DisplayNameFor(model => model.CompanyPrice)
+            }
+            else
+            {
+                @Html.DisplayNameFor(model => model.Price)
+            }
         </th>
         <th></th>
     </tr>
@@ -44,11 +51,14 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td style="vertical-align: middle">
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.Partial("Price", item)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) <br />
-                @Html.ActionLink("Buy", "Buy") @*add route values and view*@
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Buy", "Buy", new { Id = item.Id })
+                }
             </td>
         </tr>
     }

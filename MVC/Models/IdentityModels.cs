@@ -38,27 +38,44 @@ namespace MVC.Models
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            string role = "Admin";
-            string user = "JohnDoe";
+            string adminRole = "Admin";
+            string adminUser = "AdminUser";
 
-            if (!context.Roles.Any(r => r.Name == role))
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(roleStore);
-                var identityRole = new IdentityRole { Name = role };
+            string companyRole = "Company";
+            string companyUser = "CompanyUser";
 
-                roleManager.Create(identityRole);
-            }
+            string userRole = "User";
+            string regularUser = "RegularUser";
 
-            if (!context.Users.Any(u => u.UserName == user))
-            {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                var applicationUser = new ApplicationUser { UserName = user, Email = "john@doe.com" };
 
-                userManager.Create(applicationUser, "password");
-                userManager.AddToRole(applicationUser.Id, role);
-            }
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            var adminIdentityRole = new IdentityRole { Name = adminRole };
+            roleManager.Create(adminIdentityRole);
+
+            var companyIdentityRole = new IdentityRole { Name = companyRole };
+            roleManager.Create(companyIdentityRole);
+
+            var userIdentityRole = new IdentityRole { Name = userRole };
+            roleManager.Create(userIdentityRole);
+
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+
+            var applicationAdmin = new ApplicationUser { UserName = adminUser, Email = "admin@plade.com" };
+            userManager.Create(applicationAdmin, "password");
+            userManager.AddToRole(applicationAdmin.Id, adminRole);
+
+            var applicationCompany = new ApplicationUser { UserName = companyUser, Email = "company@plade.com" };
+            userManager.Create(applicationCompany, "password");
+            userManager.AddToRole(applicationCompany.Id, companyRole);
+
+            var applicationUser = new ApplicationUser { UserName = regularUser, Email = "user@plade.com" };
+            userManager.Create(applicationUser, "password");
+            userManager.AddToRole(applicationUser.Id, userRole);
+
 
             base.Seed(context);
         }

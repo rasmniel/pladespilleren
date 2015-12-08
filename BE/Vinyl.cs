@@ -16,13 +16,23 @@ namespace BE
         public string CoverUrl { get; set; }
 
         [Required]
-        [YearRange] // See custom inner class.
+        [YearRange("1900")] // See custom inner class.
         public int Year { get; set; }
 
-        [Display(Name = "Price (Dkk)"), Required]
+        [Display(Name = "Dkk incl. VAT"), Required]
         [Range(50, 1000, ErrorMessage = "Price must be between 50 & 1000")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
+
+        [Display(Name = "Dkk excl. VAT")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
+        public double CompanyPrice
+        {
+            get
+            {
+                return Price * 0.8;
+            }
+        }
 
         public virtual Artist Artist { get; set; }
 
@@ -32,13 +42,12 @@ namespace BE
         // Custom inner RangeAttribute class
         private class YearRangeAttribute : RangeAttribute
         {
-            private static readonly string StartingYear = 1900.ToString();
             private static readonly string ThisYear = DateTime.Now.Year.ToString();
 
-            public YearRangeAttribute()
-                : base(typeof(int), StartingYear, ThisYear)
+            public YearRangeAttribute(string startingYear)
+                : base(typeof(int), startingYear, ThisYear)
             {
-                ErrorMessage = "Year must be after 1900 & before " + ThisYear + 1;
+                ErrorMessage = "Year must be after " + startingYear + " & before " + ThisYear + 1;
             }
         }
     }
