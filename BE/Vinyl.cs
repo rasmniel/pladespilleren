@@ -17,7 +17,7 @@ namespace BE
 
         [Display(Name = "Price (Dkk)")]
         [Range(50, 1000, ErrorMessage = "Price must be between 50 & 1000")]
-        [DisplayFormat(DataFormatString = "{0:n2}")]
+        [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
 
         public virtual Artist Artist { get; set; }
