@@ -8,14 +8,18 @@ namespace BE
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Album")]
+        [Display(Name = "Album"), Required]
         [StringLength(50, ErrorMessage = "Album name must be below 50 characters")]
         public string Name { get; set; }
 
+        [StringLength(100)]
+        public string CoverUrl { get; set; }
+
+        [Required]
         [YearRange] // See custom inner class.
         public int Year { get; set; }
 
-        [Display(Name = "Price (Dkk)")]
+        [Display(Name = "Price (Dkk)"), Required]
         [Range(50, 1000, ErrorMessage = "Price must be between 50 & 1000")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }

@@ -54,7 +54,7 @@ namespace DAL.Db
             List<Vinyl> vinyls = new List<Vinyl>() {
                 new Vinyl() {
                     Artist = artists[0],
-                    Name = "...And Justice for All",
+                    Name = "...And Justice for All"
                     Genre = genres[0],
                     Price = 139.50,
                     Year = 1988
