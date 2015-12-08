@@ -195,7 +195,7 @@ namespace DAL.Db
                 {
                     Artist = artists[14],
                     Name = "Excursion Demise",
-                    CoverUrl = "http://bit.ly/1ORgwer",
+                    CoverUrl = "http://azintex-music.com/published/publicdata/AZINTEXMWA/attachments/SC/products_pictures/Invocator%20-%20Excursion%20Demise_enl.jpg",
                     Genre = genres[1],
                     Price = 190.99,
                     Year = 1991
