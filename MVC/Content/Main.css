@@ -100,8 +100,12 @@ footer p {
 }
 
 .albumCover {
+    margin: 0;
     height: 4em;
     border-radius: 50%;
+    background-color: whitesmoke;
+    border: 0.2em solid greenyellow;
+    padding: 0.2em;
 }
 
 .details-albumCover {
