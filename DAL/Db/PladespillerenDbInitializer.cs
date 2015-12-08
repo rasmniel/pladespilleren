@@ -195,7 +195,7 @@ namespace DAL.Db
                 {
                     Artist = artists[14],
                     Name = "Excursion Demise",
-                    CoverUrl = "https://www.google.dk/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjv5KCSiszJAhVC2ywKHXkGAP8QjRwIBw&url=http%3A%2F%2Fwww.qpratools.com%2Fgallery%2Falbum.php%3Fidalbum%3D39921&bvm=bv.109332125,d.bGQ&psig=AFQjCNEioBiOt89Uu_F_xzz1eK84dQ6FYg&ust=1449657762856063",
+                    CoverUrl = "http://bit.ly/1ORgwer",
                     Genre = genres[1],
                     Price = 190.99,
                     Year = 1991

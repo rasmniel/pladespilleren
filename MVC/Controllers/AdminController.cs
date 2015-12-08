@@ -33,7 +33,7 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        [HttpPost] // TODO: Make this create method better...
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
