@@ -8,35 +8,19 @@
 <div>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CoverUrl)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CoverUrl)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Artist)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Artist.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
         <dt>
@@ -48,11 +32,27 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Price)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CoverUrl)
         </dd>
 
     </dl>

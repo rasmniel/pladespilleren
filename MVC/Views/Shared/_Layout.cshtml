@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="bar">
-
         <div id="logged-in-name">
             @if (!User.Identity.GetUserName().IsEmpty())
             {
@@ -18,6 +17,15 @@
             }
         </div>
         <div class="container">
+            <div class="navigation col-md-6">
+                @Html.ActionLink("VINYLS", "Index", "Vinyls") |
+                @Html.ActionLink("CONTACT", "Contact", "Vinyls")
+                @if (User.IsInRole("Admin"))
+                {
+                    <span>|</span>
+                    @Html.ActionLink("ADMIN", "Index", "Admin")
+                }
+            </div>
             @Html.Partial("_LoginPartial")
         </div>
     </div>

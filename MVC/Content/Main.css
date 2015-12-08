@@ -27,6 +27,13 @@ div {
     color: ghostwhite;
 }
 
+.navigation {
+    position: relative;
+    top: 0.5em;
+    font-size: 1.2em;
+    font-weight: 800;
+}
+
 .content {
     margin-top: 1em;
     margin-bottom: 1em;

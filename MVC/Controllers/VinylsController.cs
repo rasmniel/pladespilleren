@@ -108,6 +108,11 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
