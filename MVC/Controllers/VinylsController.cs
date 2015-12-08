@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using BE;
 using DAL;
 using DAL.Repositories;
+using MVC.Models;
 
 namespace MVC.Controllers
 {
@@ -111,6 +112,14 @@ namespace MVC.Controllers
         public ActionResult Contact()
         {
             return View();
+        }
+
+        public ActionResult Buy(int id, bool? completed)
+        {
+            BuyViewModel model = new BuyViewModel();
+            model.Vinyl = vinylRepository.Read(id);
+            model.Completed = completed ?? false;
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)

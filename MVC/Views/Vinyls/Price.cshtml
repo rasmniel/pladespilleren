@@ -1,0 +1,10 @@
+﻿@model BE.Vinyl
+
+@if (User.IsInRole("Company"))
+{
+    @Html.DisplayFor(modelItem => Model.CompanyPrice)
+}
+else
+{
+    @Html.DisplayFor(modelItem => Model.Price)
+}
