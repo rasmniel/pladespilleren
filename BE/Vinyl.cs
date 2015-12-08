@@ -12,7 +12,7 @@ namespace BE
         [StringLength(50, ErrorMessage = "Album name must be below 50 characters")]
         public string Name { get; set; }
 
-        [StringLength(150)]
+        [StringLength(150, ErrorMessage = "URL must be below 150 characters")]
         public string CoverUrl { get; set; }
 
         [Required]
