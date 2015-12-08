@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
 }
 
+<br />
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -12,6 +13,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CoverUrl)
         </dd>
 
         <dt>
