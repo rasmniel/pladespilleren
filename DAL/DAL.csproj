@@ -56,6 +56,7 @@
     <Compile Include="Repositories\GenreRepository.cs" />
     <Compile Include="Repositories\ArtistRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\VinylRepository.cs" />
   </ItemGroup>
   <ItemGroup>

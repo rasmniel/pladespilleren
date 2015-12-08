@@ -8,8 +8,7 @@ namespace BE
         public int Id { get; set; }
 
         [Required]
-        [StringLength(30, ErrorMessage = "Email must be below 30 characters")]
-        public string Email { get; set; }
+        public string UserId { get; set; }
 
         public virtual Vinyl Vinyl { get; set; }
     }

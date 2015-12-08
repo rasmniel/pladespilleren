@@ -1,8 +1,10 @@
 ﻿using System.Net;
 using System.Web.Mvc;
+using System.Web.Security;
 using BE;
 using DAL;
 using DAL.Repositories;
+using Microsoft.AspNet.Identity;
 using MVC.Models;
 
 namespace MVC.Controllers
@@ -10,6 +12,7 @@ namespace MVC.Controllers
     public class VinylsController : Controller
     {
         private readonly VinylRepository vinylRepository = DALFacade.GetVinylRepository();
+        private readonly OrderRepository orderRepository = DALFacade.GetOrderRepository();
 
         // GET: Vinyls
         public ActionResult Index()
@@ -119,6 +122,13 @@ namespace MVC.Controllers
             BuyViewModel model = new BuyViewModel();
             model.Vinyl = vinylRepository.Read(id);
             model.Completed = completed ?? false;
+            if (model.Completed)
+            {
+                Order order = new Order();
+                order.Vinyl = model.Vinyl;
+                order.UserId = User.Identity.GetUserId();
+                orderRepository.Create(order);
+            }
             return View(model);
         }
 

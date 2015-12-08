@@ -26,5 +26,7 @@ namespace DAL.Db
         public DbSet<BE.Artist> Artists { get; set; }
 
         public DbSet<BE.Genre> Genres { get; set; }
+
+        public DbSet<BE.Order> Orders { get; set; }
     }
 }
