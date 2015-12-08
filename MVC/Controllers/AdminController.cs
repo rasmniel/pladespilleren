@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MVC.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly VinylRepository VinylRepo = DALFacade.GetVinylRepository();
