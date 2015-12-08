@@ -66,13 +66,13 @@ div {
     background: #4d4d4d;
 }
 
-    footer p {
-        position: relative;
-        color: black;
-        width: 100%;
-        text-align: center;
-        top: -0.1em;
-    }
+footer p {
+    position: relative;
+    color: black;
+    width: 100%;
+    text-align: center;
+    top: -0.1em;
+}
 
 #pladespiller {
     position: fixed;
@@ -95,6 +95,10 @@ div {
 .albumCover {
     height: 4em;
     border-radius: 50%;
+}
+
+.details-albumCover {
+    width: 30em;
 }
 
 #logged-in-name {
