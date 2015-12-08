@@ -23,18 +23,24 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        [ActionName("Create")] // Make CreateViewModel and add Genres and Artists to it.
+        [ActionName("Create")]
         public ActionResult CreateVinyl()
         {
-            return View();
+            CreateViewModel model = new CreateViewModel();
+            model.Vinyl = new Vinyl();
+            model.Artists = ArtistRepo.ReadAll();
+            model.Genres = GenreRepo.ReadAll();
+            return View(model);
         }
 
         [HttpPost] // TODO: Make this create method better...
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Year,Price")] Vinyl vinyl)
+        public ActionResult Create([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
             if (ModelState.IsValid)
             {
+                vinyl.Artist = ArtistRepo.Read(artistId);
+                vinyl.Genre = GenreRepo.Read(genreId);
                 VinylRepo.Create(vinyl);
                 return RedirectToAction("Index");
             }
@@ -150,7 +156,7 @@ namespace MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Year,Price")] Vinyl vinyl, int artistId, int genreId)
+        public ActionResult Edit([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
             if (ModelState.IsValid)
             {

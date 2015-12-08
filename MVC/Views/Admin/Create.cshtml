@@ -1,4 +1,4 @@
-﻿@model BE.Vinyl
+﻿@model MVC.Models.CreateViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -6,33 +6,65 @@
 
 <br />
 <br />
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Vinyl.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Vinyl.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vinyl.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Vinyl.CoverUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Vinyl.CoverUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vinyl.CoverUrl, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Vinyl.Year, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Vinyl.Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vinyl.Year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vinyl.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Vinyl.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vinyl.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vinyl.Artist, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <select class="form-control" name="artistId">
+                    @foreach (var artist in Model.Artists)
+                    {
+                        <option value=@artist.Id>@artist.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vinyl.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <select class="form-control" name="genreId">
+                    @foreach (var genre in Model.Genres)
+                    {
+                        <option value=@genre.Id>@genre.Name</option>
+                    }
+                </select>
             </div>
         </div>
 
