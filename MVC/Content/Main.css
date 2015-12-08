@@ -92,6 +92,11 @@ div {
     z-index: -1;
 }
 
+.albumCover {
+    height: 4em;
+    border-radius: 50%;
+}
+
 #logged-in-name {
     float: right;
     font-family: monospace;

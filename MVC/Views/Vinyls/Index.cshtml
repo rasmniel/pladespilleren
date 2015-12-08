@@ -6,6 +6,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Artist.Name)
         </th>
@@ -24,27 +25,31 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Artist.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new {id = item.Id})
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="albumCover" src="@item.CoverUrl" />
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Artist.Name)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Genre.Name)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+            </td>
+        </tr>
     }
 
 </table>
