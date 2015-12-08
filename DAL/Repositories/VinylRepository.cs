@@ -59,35 +59,48 @@ namespace DAL.Repositories
 
         public void Update(Vinyl entity)
         {
-            db.Vinyls.Attach(entity);
-            Vinyl existing = db.Vinyls.AsNoTracking()
-                .Include(vinyl => vinyl.Artist)
-                .Include(vinyl => vinyl.Genre)
-                .Where(v => v.Id == entity.Id).FirstOrDefault();
-            ObjectStateManager stateManager = ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager;
+            db.Entry(entity).State = EntityState.Modified;
             if (entity.Artist != null)
             {
-                if (existing.Artist == null || (existing.Artist != null && entity.Artist.Id != existing.Artist.Id))
-                {
-                    stateManager.ChangeRelationshipState(entity, entity.Artist, e => e.Artist, EntityState.Added);
-                }
+                db.Artists.Attach(entity.Artist);
+                db.Entry(entity.Artist).State = EntityState.Modified;
             }
             if (entity.Genre != null)
             {
-                if (existing.Genre == null || (existing.Genre != null && entity.Genre.Id != existing.Genre.Id))
-                {
-                    stateManager.ChangeRelationshipState(entity, entity.Genre, v => v.Genre, EntityState.Added);
-                }
+                db.Genres.Attach(entity.Genre);
+                db.Entry(entity.Genre).State = EntityState.Modified;
             }
-            db.Entry(entity).State = EntityState.Modified;
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException ex)
-            {
-                // Catching to avoid app-crash - implement changing an existing genre/artist for vinyl entity...
-            }
+            db.SaveChanges();
+
+            //db.Vinyls.Attach(entity);
+            //Vinyl existing = db.Vinyls.AsNoTracking()
+            //    .Include(vinyl => vinyl.Artist)
+            //    .Include(vinyl => vinyl.Genre)
+            //    .Where(v => v.Id == entity.Id).FirstOrDefault();
+            //ObjectStateManager stateManager = ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager;
+            //if (entity.Artist != null)
+            //{
+            //    if (existing.Artist == null || (existing.Artist != null && entity.Artist.Id != existing.Artist.Id))
+            //    {
+            //        stateManager.ChangeRelationshipState(entity, entity.Artist, e => e.Artist, EntityState.Added);
+            //    }
+            //}
+            //if (entity.Genre != null)
+            //{
+            //    if (existing.Genre == null || (existing.Genre != null && entity.Genre.Id != existing.Genre.Id))
+            //    {
+            //        stateManager.ChangeRelationshipState(entity, entity.Genre, v => v.Genre, EntityState.Added);
+            //    }
+            //}
+            //db.Entry(entity).State = EntityState.Modified;
+            //try
+            //{
+            //    db.SaveChanges();
+            //}
+            //catch (DbUpdateException ex)
+            //{
+            //    // Catching to avoid app-crash - implement changing an existing genre/artist for vinyl entity...
+            //}
         }
 
         public void Dispose()

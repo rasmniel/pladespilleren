@@ -6,16 +6,16 @@
 
 @using (Html.BeginForm())
 {
+    <br />
+    <br />
     @Html.AntiForgeryToken()
-    <br />
-    <br />
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Vinyl.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinyl.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Vinyl.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vinyl.Name, "", new { @class = "text-danger" })
             </div>
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinyl.Year, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Vinyl.Year, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vinyl.Year, "", new { @class = "text-danger" })
             </div>
@@ -31,7 +31,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinyl.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Vinyl.Price, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Vinyl.Price, "", new { @class = "text-danger" })
             </div>
@@ -39,7 +39,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinyl.Artist, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <select class="form-control" name="artistId">
                     @foreach (var artist in Model.Artists)
                     {
@@ -66,7 +66,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Vinyl.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <select class="form-control" name="genreId">
                     @foreach (var genre in Model.Genres)
                     {
