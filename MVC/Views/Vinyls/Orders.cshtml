@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<BE.Order>
+﻿@model IEnumerable<BE.Order>
 
 @{
     ViewBag.Title = "Orders";
@@ -34,6 +33,7 @@
             <th>
                 Buyer
             </th>
+            <th></th>
         }
     </tr>
 
@@ -57,9 +57,18 @@
             </td>
             @if (User.IsInRole("Admin"))
             {
-                <td>
+                <td style="vertical-align: middle">
                     @item.UserId
                     @*@Membership.GetUser(new Guid(item.UserId)).UserName*@
+                </td>
+                <td style="vertical-align: middle">
+                    <input id="safe-delete" class="btn btn-default" type="submit" value="Delete"
+                           onclick="
+                        $(this).css('display', 'none');
+                        $(this).next().css('display', 'block');
+                    ">
+                    @Html.ActionLink("Delete?", "DeleteOrder", "Admin", new { id = item.Id },
+                            new { id = "delete-link", style = "display: none;" })
                 </td>
             }
         </tr>

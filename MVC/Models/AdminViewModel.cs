@@ -10,7 +10,5 @@ namespace MVC.Models
         public IEnumerable<Artist> Artists { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
-
-        public IEnumerable<Vinyl> AllVinyls { get; set; }
     }
 }

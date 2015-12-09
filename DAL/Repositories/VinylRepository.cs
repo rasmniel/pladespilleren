@@ -3,8 +3,6 @@ using System.Data.Entity;
 using System.Linq;
 using BE;
 using DAL.Db;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Core.Objects;
 
 namespace DAL.Repositories
 {
@@ -59,48 +57,33 @@ namespace DAL.Repositories
 
         public void Update(Vinyl entity)
         {
-            db.Entry(entity).State = EntityState.Modified;
+            var original = db.Vinyls
+                .Include(vinyl => vinyl.Genre)
+                .Include(vinyl => vinyl.Artist)
+                .FirstOrDefault(vinyl => vinyl.Id == entity.Id);
+            
+            // Set all values from new entity to the old (except object references)
+            db.Entry(original).CurrentValues.SetValues(entity);
+
+            // Update references
             if (entity.Artist != null)
             {
-                db.Artists.Attach(entity.Artist);
-                db.Entry(entity.Artist).State = EntityState.Modified;
+                if (original.Artist == null || entity.Artist.Id != original.Artist.Id)
+                {
+                    db.Artists.Attach(entity.Artist);
+                    original.Artist = entity.Artist;
+                }
             }
             if (entity.Genre != null)
             {
-                db.Genres.Attach(entity.Genre);
-                db.Entry(entity.Genre).State = EntityState.Modified;
+                if (original.Genre == null || entity.Genre.Id != original.Genre.Id)
+                {
+                    db.Genres.Attach(entity.Genre);
+                    original.Genre = entity.Genre;
+                }
             }
-            db.SaveChanges();
 
-            //db.Vinyls.Attach(entity);
-            //Vinyl existing = db.Vinyls.AsNoTracking()
-            //    .Include(vinyl => vinyl.Artist)
-            //    .Include(vinyl => vinyl.Genre)
-            //    .Where(v => v.Id == entity.Id).FirstOrDefault();
-            //ObjectStateManager stateManager = ((IObjectContextAdapter)db).ObjectContext.ObjectStateManager;
-            //if (entity.Artist != null)
-            //{
-            //    if (existing.Artist == null || (existing.Artist != null && entity.Artist.Id != existing.Artist.Id))
-            //    {
-            //        stateManager.ChangeRelationshipState(entity, entity.Artist, e => e.Artist, EntityState.Added);
-            //    }
-            //}
-            //if (entity.Genre != null)
-            //{
-            //    if (existing.Genre == null || (existing.Genre != null && entity.Genre.Id != existing.Genre.Id))
-            //    {
-            //        stateManager.ChangeRelationshipState(entity, entity.Genre, v => v.Genre, EntityState.Added);
-            //    }
-            //}
-            //db.Entry(entity).State = EntityState.Modified;
-            //try
-            //{
-            //    db.SaveChanges();
-            //}
-            //catch (DbUpdateException ex)
-            //{
-            //    // Catching to avoid app-crash - implement changing an existing genre/artist for vinyl entity...
-            //}
+            db.SaveChanges();
         }
 
         public void Dispose()

@@ -13,6 +13,7 @@ namespace MVC.Controllers
         private readonly VinylRepository VinylRepo = DALFacade.GetVinylRepository();
         private readonly GenreRepository GenreRepo = DALFacade.GetGenreRepository();
         private readonly ArtistRepository ArtistRepo = DALFacade.GetArtistRepository();
+        private readonly OrderRepository OrderRepo = DALFacade.GetOrderRepository();
 
         public ActionResult Index()
         {
@@ -20,33 +21,7 @@ namespace MVC.Controllers
             model.BrokenVinyls = VinylRepo.ReadBrokenVinyls();
             model.Artists = ArtistRepo.ReadAll();
             model.Genres = GenreRepo.ReadAll();
-            model.AllVinyls = VinylRepo.ReadGoodVinyls();
             return View(model);
-        }
-
-        [ActionName("Create")]
-        public ActionResult CreateVinyl()
-        {
-            CreateViewModel model = new CreateViewModel();
-            model.Vinyl = new Vinyl();
-            model.Artists = ArtistRepo.ReadAll();
-            model.Genres = GenreRepo.ReadAll();
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
-        {
-            if (ModelState.IsValid)
-            {
-                vinyl.Artist = ArtistRepo.Read(artistId);
-                vinyl.Genre = GenreRepo.Read(genreId);
-                VinylRepo.Create(vinyl);
-                return RedirectToAction("Index");
-            }
-
-            return View(vinyl);
         }
 
         public ActionResult Details(int? id)
@@ -170,28 +145,20 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Delete(int? id)
+        public ActionResult DeleteOrder(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vinyl vinyl = VinylRepo.Read(id);
-            if (vinyl == null)
+            Order order = OrderRepo.Read(id);
+            if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(vinyl);
-        }
-        
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Vinyl vinyl = VinylRepo.Read(id);
-            VinylRepo.Delete(vinyl);
-            return RedirectToAction("Index");
-        }
+            OrderRepo.Delete(order);
+            return RedirectToAction("Orders", "Vinyls");
+        } // Split into Order, Artist and Genre controller.
 
         protected override void Dispose(bool disposing)
         {

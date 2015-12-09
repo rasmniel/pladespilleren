@@ -20,7 +20,7 @@ namespace BE
         public int Year { get; set; }
 
         [Display(Name = "Dkk incl. VAT"), Required]
-        [Range(50, 1000, ErrorMessage = "Price must be between 50 & 1000")]
+        [Range(10, 1000, ErrorMessage = "Price must be between 50 & 1000")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public double Price { get; set; }
 
