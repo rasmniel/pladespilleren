@@ -15,12 +15,27 @@ namespace DAL.Repositories
 
         public Order Read(int? id)
         {
-            return db.Orders.Include(order => order.Vinyl).FirstOrDefault(order => order.Id == id);
+            return db.Orders
+                .Include(order => order.Vinyl)
+                .Include(order => order.Vinyl.Artist)
+                .FirstOrDefault(order => order.Id == id);
         }
 
         public IEnumerable<Order> ReadAll()
         {
-            return db.Orders.Include(order => order.Vinyl).ToList();
+            return db.Orders
+                .Include(order => order.Vinyl)
+                .Include(order => order.Vinyl.Artist)
+                .ToList();
+        }
+
+        public IEnumerable<Order> ReadCustomerOrders(string id)
+        {
+            return db.Orders
+                .Include(order => order.Vinyl)
+                .Where(order => order.UserId == id)
+                .Include(order => order.Vinyl.Artist)
+                .ToList();
         }
 
         public Order Create(Order entity)

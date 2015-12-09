@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 using BE;
@@ -48,11 +50,29 @@ namespace MVC.Controllers
             if (model.Completed)
             {
                 Order order = new Order();
+                order.Date = DateTime.Now;
                 order.Vinyl = model.Vinyl;
                 order.UserId = User.Identity.GetUserId();
                 orderRepository.Create(order);
             }
             return View(model);
+        }
+
+        public ActionResult Orders()
+        {
+            IEnumerable<Order> orders = new List<Order>();
+
+            if (User.IsInRole("Admin"))
+            {
+                orders = orderRepository.ReadAll();
+            }
+
+            else if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.Identity.GetUserId();
+                orders = orderRepository.ReadCustomerOrders(userId);
+            }
+            return View(orders);
         }
 
         protected override void Dispose(bool disposing)
@@ -63,5 +83,6 @@ namespace MVC.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

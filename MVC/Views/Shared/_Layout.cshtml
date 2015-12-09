@@ -20,6 +20,11 @@
             <div class="navigation col-md-6">
                 @Html.ActionLink("VINYLS", "Index", "Vinyls") |
                 @Html.ActionLink("CONTACT", "Contact", "Vinyls")
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span>|</span>
+                    @Html.ActionLink("ORDERS", "Orders", "Vinyls")
+                }
                 @if (User.IsInRole("Admin"))
                 {
                     <span>|</span>

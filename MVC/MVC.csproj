@@ -255,6 +255,7 @@
     <Content Include="Views\Vinyls\Contact.cshtml" />
     <Content Include="Views\Vinyls\Buy.cshtml" />
     <Content Include="Views\Vinyls\Price.cshtml" />
+    <Content Include="Views\Vinyls\Orders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

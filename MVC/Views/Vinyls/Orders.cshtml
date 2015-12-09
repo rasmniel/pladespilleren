@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<BE.Order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vinyl.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vinyl.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @if (User.IsInRole("Company"))
+            {
+                @Html.DisplayNameFor(model => model.Vinyl.CompanyPrice)
+            }
+            else
+            {
+                @Html.DisplayNameFor(model => model.Vinyl.Price)
+            }
+        </th>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>
+                Buyer
+            </th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img class="albumCover" src="@item.Vinyl.CoverUrl" />
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Vinyl.Artist.Name)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Vinyl.Name)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td style="vertical-align: middle">
+                @Html.Partial("Price", item.Vinyl)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @item.UserId
+                    @*@Membership.GetUser(new Guid(item.UserId)).UserName*@
+                </td>
+            }
+        </tr>
+    }
+</table>
