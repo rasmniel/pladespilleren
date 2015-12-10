@@ -58,8 +58,7 @@
             @if (User.IsInRole("Admin"))
             {
                 <td style="vertical-align: middle">
-                    @item.UserId
-                    @*@Membership.GetUser(new Guid(item.UserId)).UserName*@
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td style="vertical-align: middle">
                     <input class="btn btn-default" type="submit" value="Delete"

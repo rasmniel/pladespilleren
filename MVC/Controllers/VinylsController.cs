@@ -126,6 +126,7 @@ namespace MVC.Controllers
                 order.Date = DateTime.Now;
                 order.Vinyl = model.Vinyl;
                 order.UserId = User.Identity.GetUserId();
+                order.UserName = User.Identity.GetUserName();
                 OrderRepo.Create(order);
             }
             return View(model);

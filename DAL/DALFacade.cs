@@ -3,7 +3,6 @@ using DAL.Repositories;
 
 namespace DAL
 {
-    // Singleton class
     public class DALFacade
     {
         public static VinylRepository GetVinylRepository()
