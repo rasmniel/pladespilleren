@@ -99,9 +99,13 @@ footer p {
     z-index: -1;
 }
 
+.vinyl-table {
+    font-size: 1.5em;
+}
+
 .albumCover {
     margin: 0;
-    height: 4em;
+    height: 6em;
     border-radius: 50%;
     background-color: whitesmoke;
     border: 0.2em solid greenyellow;

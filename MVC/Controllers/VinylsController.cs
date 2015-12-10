@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Web.UI;
 using BE;
 using DAL;
 using DAL.Repositories;
@@ -13,28 +14,108 @@ namespace MVC.Controllers
 {
     public class VinylsController : Controller
     {
-        private readonly VinylRepository vinylRepository = DALFacade.GetVinylRepository();
-        private readonly OrderRepository orderRepository = DALFacade.GetOrderRepository();
+        private readonly VinylRepository VinylRepo = DALFacade.GetVinylRepository();
+        private readonly GenreRepository GenreRepo = DALFacade.GetGenreRepository();
+        private readonly ArtistRepository ArtistRepo = DALFacade.GetArtistRepository();
+        private readonly OrderRepository OrderRepo = DALFacade.GetOrderRepository();
 
-        // GET: Vinyls
         public ActionResult Index()
         {
-            return View(vinylRepository.ReadAll());
+            return View(VinylRepo.ReadAll());
+        }
+        
+        public ActionResult Create()
+        {
+            CreateViewModel model = new CreateViewModel();
+            model.Vinyl = new Vinyl();
+            model.Artists = ArtistRepo.ReadAll();
+            model.Genres = GenreRepo.ReadAll();
+            return View(model);
         }
 
-        // GET: Vinyls/Details/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
+        {
+            if (ModelState.IsValid)
+            {
+                vinyl.Artist = ArtistRepo.Read(artistId);
+                vinyl.Genre = GenreRepo.Read(genreId);
+                VinylRepo.Create(vinyl);
+                return RedirectToAction("Index");
+            }
+
+            return View(vinyl);
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vinyl vinyl = VinylRepo.Read(id);
+            if (vinyl == null)
+            {
+                return HttpNotFound();
+            }
+            EditViewModel model = new EditViewModel();
+            model.Vinyl = vinyl;
+            model.Artists = ArtistRepo.ReadAll();
+            model.Genres = GenreRepo.ReadAll();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
+        {
+            if (ModelState.IsValid)
+            {
+                Artist a = ArtistRepo.Read(artistId);
+                vinyl.Artist = a;
+                Genre g = GenreRepo.Read(genreId);
+                vinyl.Genre = g;
+                VinylRepo.Update(vinyl);
+            }
+            return RedirectToAction("Index");
+        }
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vinyl vinyl = vinylRepository.Read(id);
+            Vinyl vinyl = VinylRepo.Read(id);
             if (vinyl == null)
             {
                 return HttpNotFound();
             }
             return View(vinyl);
+        }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vinyl vinyl = VinylRepo.Read(id);
+            if (vinyl == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vinyl);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Vinyl vinyl = VinylRepo.Read(id);
+            VinylRepo.Delete(vinyl);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Contact()
@@ -45,7 +126,7 @@ namespace MVC.Controllers
         public ActionResult Buy(int id, bool? completed)
         {
             BuyViewModel model = new BuyViewModel();
-            model.Vinyl = vinylRepository.Read(id);
+            model.Vinyl = VinylRepo.Read(id);
             model.Completed = completed ?? false;
             if (model.Completed)
             {
@@ -53,7 +134,8 @@ namespace MVC.Controllers
                 order.Date = DateTime.Now;
                 order.Vinyl = model.Vinyl;
                 order.UserId = User.Identity.GetUserId();
-                orderRepository.Create(order);
+                order.UserName = User.Identity.GetUserName();
+                OrderRepo.Create(order);
             }
             return View(model);
         }
@@ -64,13 +146,13 @@ namespace MVC.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                orders = orderRepository.ReadAll();
+                orders = OrderRepo.ReadAll();
             }
 
             else if (User.Identity.IsAuthenticated)
             {
                 string userId = User.Identity.GetUserId();
-                orders = orderRepository.ReadCustomerOrders(userId);
+                orders = OrderRepo.ReadCustomerOrders(userId);
             }
             return View(orders);
         }
@@ -79,7 +161,7 @@ namespace MVC.Controllers
         {
             if (disposing)
             {
-                vinylRepository.Dispose();
+                VinylRepo.Dispose();
             }
             base.Dispose(disposing);
         }
