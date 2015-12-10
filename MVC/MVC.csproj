@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\VinylsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -253,10 +254,10 @@
     <Content Include="Views\Vinyls\Contact.cshtml" />
     <Content Include="Views\Vinyls\Buy.cshtml" />
     <Content Include="Views\Shared\Price.cshtml" />
-    <Content Include="Views\Vinyls\Orders.cshtml" />
     <Content Include="Views\Vinyls\Edit.cshtml" />
     <Content Include="Views\Vinyls\Delete.cshtml" />
     <Content Include="Views\Vinyls\Create.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

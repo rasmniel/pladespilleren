@@ -40,6 +40,7 @@ namespace DAL.Repositories
 
         public Order Create(Order entity)
         {
+            db.Vinyls.Attach(entity.Vinyl);
             db.Orders.Add(entity);
             db.SaveChanges();
             return entity;
