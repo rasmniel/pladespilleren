@@ -23,7 +23,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <span>|</span>
-                    @Html.ActionLink("ORDERS", "Orders", "Vinyls")
+                    @Html.ActionLink("ORDERS", "Index", "Orders")
                 }
                 @if (User.IsInRole("Admin"))
                 {

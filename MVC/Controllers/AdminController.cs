@@ -145,28 +145,14 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteOrder(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = OrderRepo.Read(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            OrderRepo.Delete(order);
-            return RedirectToAction("Orders", "Vinyls");
-        } // Split into Order, Artist and Genre controller.
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
+                VinylRepo.Dispose();
                 ArtistRepo.Dispose();
                 GenreRepo.Dispose();
-                VinylRepo.Dispose();
+                OrderRepo.Dispose();
             }
             base.Dispose(disposing);
         }

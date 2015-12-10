@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
-using System.Web.Security;
 using BE;
 using DAL;
 using DAL.Repositories;
@@ -117,11 +115,6 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Contact()
-        {
-            return View();
-        }
-
         public ActionResult Buy(int id, bool? completed)
         {
             BuyViewModel model = new BuyViewModel();
@@ -138,21 +131,9 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        public ActionResult Orders()
+        public ActionResult Contact()
         {
-            IEnumerable<Order> orders = new List<Order>();
-
-            if (User.IsInRole("Admin"))
-            {
-                orders = OrderRepo.ReadAll();
-            }
-
-            else if (User.Identity.IsAuthenticated)
-            {
-                string userId = User.Identity.GetUserId();
-                orders = OrderRepo.ReadCustomerOrders(userId);
-            }
-            return View(orders);
+            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -160,6 +141,9 @@ namespace MVC.Controllers
             if (disposing)
             {
                 VinylRepo.Dispose();
+                ArtistRepo.Dispose();
+                GenreRepo.Dispose();
+                OrderRepo.Dispose();
             }
             base.Dispose(disposing);
         }
