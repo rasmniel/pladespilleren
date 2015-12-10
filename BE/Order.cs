@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BE
@@ -10,7 +11,7 @@ namespace BE
 
         [Required]
         public string UserId { get; set; }
-
+        
         [Required]
         public DateTime Date { get; set; }
 

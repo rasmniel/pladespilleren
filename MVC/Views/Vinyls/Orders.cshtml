@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<BE.Order>
+﻿@model IEnumerable<BE.Order>
 
 @{
     ViewBag.Title = "Orders";
@@ -58,8 +57,10 @@
             @if (User.IsInRole("Admin"))
             {
                 <td>
-                    @item.UserId
-                    @*@Membership.GetUser(new Guid(item.UserId)).UserName*@
+                    
+                    @*   NULL ?? WTF BANAN ??   *@
+                    @Membership.GetUser(item.UserId).UserName
+
                 </td>
             }
         </tr>
