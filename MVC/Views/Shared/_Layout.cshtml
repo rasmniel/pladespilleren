@@ -19,7 +19,8 @@
         <div class="container">
             <div class="navigation col-md-6">
                 @Html.ActionLink("VINYLS", "Index", "Vinyls") |
-                @Html.ActionLink("CONTACT", "Contact", "Vinyls")
+                @Html.ActionLink("ABOUT", "About", "Info") |
+                @Html.ActionLink("CONTACT", "Contact", "Info")
                 @if (User.Identity.IsAuthenticated)
                 {
                     <span>|</span>

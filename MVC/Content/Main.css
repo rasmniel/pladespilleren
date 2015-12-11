@@ -116,6 +116,27 @@ footer p {
     width: 27em;
 }
 
+#information-logo {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em;
+    top: 3em;
+}
+
+#information-text p {
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.2em;
+    font-style: italic;
+    color: greenyellow;
+}
+
+.contact-header {
+    color: white;
+}
+
 #logged-in-name {
     float: right;
     font-family: monospace;

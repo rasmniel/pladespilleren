@@ -132,11 +132,6 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        public ActionResult Contact()
-        {
-            return View();
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
