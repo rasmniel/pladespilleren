@@ -2,6 +2,7 @@
 using DAL;
 using DAL.Repositories;
 using MVC.Models;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -19,8 +20,8 @@ namespace MVC.Controllers
         {
             AdminViewModel model = new AdminViewModel();
             model.BrokenVinyls = VinylRepo.ReadBrokenVinyls();
-            model.Artists = ArtistRepo.ReadAll();
-            model.Genres = GenreRepo.ReadAll();
+            model.Artists = ArtistRepo.ReadAll().OrderBy(a => a.Name);
+            model.Genres = GenreRepo.ReadAll().OrderBy(g => g.Name); ;
             return View(model);
         }
 
@@ -38,7 +39,7 @@ namespace MVC.Controllers
             return View(vinyl);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult CreateArtist([Bind(Include = "Id,Name")] Artist artist)
         {
@@ -49,7 +50,7 @@ namespace MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult CreateGenre([Bind(Include = "Id,Name")] Genre genre)
         {
@@ -130,7 +131,7 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
