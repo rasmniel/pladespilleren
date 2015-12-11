@@ -30,7 +30,7 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
@@ -63,7 +63,7 @@ namespace MVC.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,CoverUrl,Year,Price")] Vinyl vinyl, int artistId, int genreId)
         {
@@ -106,7 +106,8 @@ namespace MVC.Controllers
             return View(vinyl);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [ActionName("Delete")]
+        [HttpPost, ValidateInput(true)]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
