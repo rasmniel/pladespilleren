@@ -1,6 +1,4 @@
 ﻿using BE;
-using DAL;
-using DAL.Repositories;
 using MVC.Models;
 using System.Linq;
 using System.Net;

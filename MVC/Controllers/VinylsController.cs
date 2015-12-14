@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using BE;
-using DAL;
-using DAL.Repositories;
 using Microsoft.AspNet.Identity;
 using MVC.infrastructure;
 using MVC.Models;

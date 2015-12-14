@@ -1,45 +1,64 @@
 ﻿using BE;
-using DAL;
-using DAL.Repositories;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Mvc;
+using MVC.infrastructure;
 
 namespace MVC.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly OrderRepository OrderRepo = DALFacade.GetOrderRepository();
+        private readonly OrdersGateway OrdersGateway = new OrdersGateway();
 
         public ActionResult Index()
         {
             IEnumerable<Order> orders = new List<Order>();
             if (User.IsInRole("Admin"))
             {
-                orders = OrderRepo.ReadAll();
+                HttpResponseMessage response = OrdersGateway.ReadAll();
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    orders = response.Content.ReadAsAsync<IEnumerable<Order>>().Result;
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(response.StatusCode);
+                }
             }
             else if (User.Identity.IsAuthenticated)
             {
                 string userId = User.Identity.GetUserId();
-                orders = OrderRepo.ReadCustomerOrders(userId);
+
+                HttpResponseMessage response = OrdersGateway.ReadAll();
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    orders = response.Content.ReadAsAsync<IEnumerable<Order>>().Result;
+                    orders.Where(order => order.UserId == userId);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(response.StatusCode);
+                }
             }
             return View(orders);
         }
 
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            HttpResponseMessage response = OrdersGateway.Read(id);
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Order order = response.Content.ReadAsAsync<Order>().Result;
+                HttpResponseMessage deleteResponse = OrdersGateway.Delete(order.Id);
+                if (deleteResponse.StatusCode == HttpStatusCode.OK)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-            Order order = OrderRepo.Read(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            OrderRepo.Delete(order);
-            return RedirectToAction("Index");
+            return new HttpStatusCodeResult(response.StatusCode);
         }
     }
 }
