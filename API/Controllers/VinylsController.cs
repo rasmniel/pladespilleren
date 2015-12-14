@@ -63,5 +63,14 @@ namespace API.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Repo.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
