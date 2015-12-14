@@ -47,7 +47,7 @@ namespace Tests
             Assert.AreNotEqual(0, testVinyl.Id);
         }
 
-        // Real all vinyls test
+        // Read all vinyls test
         [Test]
         public void ReadAllVinylsTest()
         {
