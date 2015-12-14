@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using BE;
@@ -28,6 +29,7 @@ namespace Tests
             );
         }
 
+        // Real all vinyls test
         [Test]
         public void ReadAllVinylsTest()
         {
@@ -45,6 +47,32 @@ namespace Tests
                 Vinyl vinyl = vinyls.First();
                 Assert.False(vinyl.Artist == null || vinyl.Genre == null);
             }
+        }
+
+        // Read 1 vinyl test
+        [Test]
+        public void ReadVinyl()
+        {
+            HttpResponseMessage response = client.GetAsync("api/vinyls/1").Result;
+            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
+
+            // Test if there is a vinyl present
+            Assert.NotNull(vinyl);
+        }
+
+        // Update vinyl test
+        [Test]
+        public void PutVinyl()
+        {
+            HttpResponseMessage response = client.GetAsync("api/vinyls/1").Result;
+            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
+            
+            // Change vinyl name
+            vinyl.Name = "test";
+
+            HttpResponseMessage putResponse = client.PutAsJsonAsync("api/vinyls/1", vinyl).Result;
+            
+            Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
         }
     }
 }

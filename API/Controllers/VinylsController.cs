@@ -22,9 +22,10 @@ namespace API.Controllers
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            return "value";
+            Vinyl vinyl = Repo.Read(id);
+            return Request.CreateResponse(HttpStatusCode.Found, vinyl);
         }
 
         // POST api/values
@@ -33,8 +34,10 @@ namespace API.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put([FromBody]Vinyl vinyl)
         {
+            Repo.Update(vinyl);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         // DELETE api/values/5
