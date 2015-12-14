@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Net;
+using System.Net.Http;
 using System.Web.Mvc;
 using BE;
 using DAL;
 using DAL.Repositories;
 using Microsoft.AspNet.Identity;
+using MVC.infrastructure;
 using MVC.Models;
+using System.Collections.Generic;
 
 namespace MVC.Controllers
 {
     public class VinylsController : Controller
     {
+        private readonly VinylsGateway VinylsGateway = new VinylsGateway();
         private readonly VinylRepository VinylRepo = DALFacade.GetVinylRepository();
         private readonly GenreRepository GenreRepo = DALFacade.GetGenreRepository();
         private readonly ArtistRepository ArtistRepo = DALFacade.GetArtistRepository();
@@ -18,7 +22,14 @@ namespace MVC.Controllers
 
         public ActionResult Index()
         {
-            return View(VinylRepo.ReadAll());
+            HttpResponseMessage response = VinylsGateway.ReadAll();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var vinyls = response.Content.ReadAsAsync<IEnumerable<Vinyl>>().Result;
+                return View(vinyls);
+            }
+            return new HttpStatusCodeResult(response.StatusCode);
         }
         
         public ActionResult Create()
@@ -38,11 +49,17 @@ namespace MVC.Controllers
             {
                 vinyl.Artist = ArtistRepo.Read(artistId);
                 vinyl.Genre = GenreRepo.Read(genreId);
-                VinylRepo.Create(vinyl);
-                return RedirectToAction("Index");
+                HttpResponseMessage response = VinylsGateway.Create(vinyl);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return RedirectToAction("Index");
+                }
             }
-
-            return View(vinyl);
+            CreateViewModel model = new CreateViewModel();
+            model.Vinyl = vinyl;
+            model.Artists = ArtistRepo.ReadAll();
+            model.Genres = GenreRepo.ReadAll();
+            return View(model);
         }
 
         public ActionResult Edit(int? id)
