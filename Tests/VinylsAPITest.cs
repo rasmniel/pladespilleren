@@ -42,7 +42,7 @@ namespace Tests
             testVinyl = response.Content.ReadAsAsync<Vinyl>().Result;
         }
 
-        // Create a vinyl test (assert on above instanciated vinyl)
+        // Create a vinyl test (assert on above instantiated vinyl)
         [Test]
         public void PostVinylTest()
         {
