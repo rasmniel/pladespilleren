@@ -12,7 +12,7 @@ namespace Tests
     [TestFixture]
     public class VinylsApiTest
     {
-        HttpClient client;
+        private HttpClient client;
 
         [SetUp]
         public void Setup()
