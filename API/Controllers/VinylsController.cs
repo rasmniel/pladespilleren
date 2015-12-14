@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -14,39 +12,44 @@ namespace API.Controllers
     {
         private readonly VinylRepository Repo = DALFacade.GetVinylRepository();
 
-        // GET api/values
+        // GET api/vinyls
         public HttpResponseMessage Get()
         {
             IEnumerable<Vinyl> vinyls = Repo.ReadAll();
-            return Request.CreateResponse(HttpStatusCode.Found, vinyls);
+            return Request.CreateResponse(HttpStatusCode.OK, vinyls);
         }
 
-        // GET api/values/5
+        // GET api/vinyls/5
         public HttpResponseMessage Get(int id)
         {
             Vinyl vinyl = Repo.Read(id);
-            return Request.CreateResponse(HttpStatusCode.Found, vinyl);
+            if (vinyl != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, vinyl);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // POST api/values
+        // POST api/vinyls
         public HttpResponseMessage Post([FromBody]Vinyl vinyl)
         {
             if (vinyl != null)
             {
                 Vinyl newVinyl = Repo.Create(vinyl);
-                return Request.CreateResponse(HttpStatusCode.Created, newVinyl);
+                return Request.CreateResponse(HttpStatusCode.OK, newVinyl);
             }
-            else
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, vinyl);
-            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest, vinyl);
         }
 
         // PUT api/values/5
         public HttpResponseMessage Put([FromBody]Vinyl vinyl)
         {
-            Repo.Update(vinyl);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            if (vinyl != null)
+            {
+                Repo.Update(vinyl);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         // DELETE api/values/5

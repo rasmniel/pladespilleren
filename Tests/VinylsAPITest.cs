@@ -19,9 +19,10 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            // Get the base address value from App.config
+            // Get the base address value from App.config.
             string baseAddress = ConfigurationManager.AppSettings["ApiBaseAddress"];
 
+            // Setup client for calling the api.
             client = new HttpClient();
             client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
@@ -47,7 +48,7 @@ namespace Tests
             Assert.AreNotEqual(0, testVinyl.Id);
         }
 
-        // Real all vinyls test
+        // Read all vinyls test
         [Test]
         public void ReadAllVinylsTest()
         {
