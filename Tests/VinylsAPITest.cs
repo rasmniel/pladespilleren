@@ -14,6 +14,7 @@ namespace Tests
     public class VinylsApiTest
     {
         private HttpClient client;
+        private Vinyl testVinyl;
 
         [SetUp]
         public void Setup()
@@ -27,6 +28,23 @@ namespace Tests
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json")
             );
+
+            // Instantiate test vinyl.
+            testVinyl = new Vinyl()
+            {
+                Id = 0,
+                Name = "Test",
+                Price = 100,
+                Year = 1999
+            };
+            HttpResponseMessage response = client.PostAsJsonAsync("api/vinyls/", testVinyl).Result;
+            testVinyl = response.Content.ReadAsAsync<Vinyl>().Result;
+        }
+
+        [Test]
+        public void PostVinylTest()
+        {
+            Assert.AreNotEqual(0, testVinyl.Id);
         }
 
         // Real all vinyls test
@@ -51,62 +69,33 @@ namespace Tests
 
         // Read 1 vinyl test
         [Test]
-        public void ReadVinyl()
+        public void ReadVinylTest()
         {
-            HttpResponseMessage response = client.GetAsync("api/vinyls/1").Result;
+            HttpResponseMessage response = client.GetAsync("api/vinyls/" + testVinyl.Id).Result;
             Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
 
             // Test if there is a vinyl present
             Assert.NotNull(vinyl);
         }
 
+        // Update vinyl test
         [Test]
-        public void PostVinylTest()
+        public void PutVinylTest()
         {
-            Vinyl testVinyl = new Vinyl()
-            {
-                Id = 0,
-                Name = "Test",
-                Price = 100,
-                Year = 1999
-            };
+            HttpResponseMessage response = client.GetAsync("api/vinyls/" + testVinyl.Id).Result;
+            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
 
-            HttpResponseMessage response = client.PostAsJsonAsync("api/vinyls/", testVinyl).Result;
-            Vinyl created = response.Content.ReadAsAsync<Vinyl>().Result;
-            Assert.AreNotEqual(0, created.Id);
+            // Change vinyl name
+            vinyl.Name = "test";
+            HttpResponseMessage putResponse = client.PutAsJsonAsync("api/vinyls/", vinyl).Result;
+            Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
         }
 
         [Test]
         public void DeleteVinylTest()
         {
-            Vinyl testVinyl = new Vinyl()
-            {
-                Id = 0,
-                Name = "Test",
-                Price = 100,
-                Year = 1999
-            };
-
-            HttpResponseMessage postResponse = client.PostAsJsonAsync("api/vinyls/", testVinyl).Result;
-            Vinyl created = postResponse.Content.ReadAsAsync<Vinyl>().Result;
-
-            HttpResponseMessage deleteResponse = client.DeleteAsync("api/vinyls/" + created.Id).Result;
+            HttpResponseMessage deleteResponse = client.DeleteAsync("api/vinyls/" + testVinyl.Id).Result;
             Assert.AreEqual(HttpStatusCode.OK, deleteResponse.StatusCode);
-        }
-
-        // Update vinyl test
-        [Test]
-        public void PutVinyl()
-        {
-            HttpResponseMessage response = client.GetAsync("api/vinyls/1").Result;
-            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-
-            // Change vinyl name
-            vinyl.Name = "test";
-
-            HttpResponseMessage putResponse = client.PutAsJsonAsync("api/vinyls/1", vinyl).Result;
-
-            Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
         }
     }
 }
