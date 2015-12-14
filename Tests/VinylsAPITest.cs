@@ -30,7 +30,7 @@ namespace Tests
                 new MediaTypeWithQualityHeaderValue("application/json")
             );
 
-            // Instantiate test vinyl.
+            // Instantiate a test vinyl
             testVinyl = new Vinyl()
             {
                 Id = 0,
@@ -42,6 +42,7 @@ namespace Tests
             testVinyl = response.Content.ReadAsAsync<Vinyl>().Result;
         }
 
+        // Create a vinyl test (assert on above instanciated vinyl)
         [Test]
         public void PostVinylTest()
         {
@@ -68,7 +69,7 @@ namespace Tests
             }
         }
 
-        // Read 1 vinyl test
+        // Read the instanciated vinyl test
         [Test]
         public void ReadVinylTest()
         {
@@ -79,7 +80,7 @@ namespace Tests
             Assert.NotNull(vinyl);
         }
 
-        // Update vinyl test
+        // Update a vinyl test
         [Test]
         public void PutVinylTest()
         {
@@ -89,9 +90,12 @@ namespace Tests
             // Change vinyl name
             vinyl.Name = "test";
             HttpResponseMessage putResponse = client.PutAsJsonAsync("api/vinyls/", vinyl).Result;
+
+            // Test that the statuscodes are the same
             Assert.AreEqual(HttpStatusCode.OK, putResponse.StatusCode);
         }
 
+        // Delete a vinyl test
         [Test]
         public void DeleteVinylTest()
         {
