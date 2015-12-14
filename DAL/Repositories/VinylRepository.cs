@@ -65,7 +65,7 @@ namespace DAL.Repositories
             // Set all values from new entity to the old (except object references)
             db.Entry(original).CurrentValues.SetValues(entity);
 
-            // Update references
+            // Update artist reference
             if (entity.Artist != null)
             {
                 if (original.Artist == null || entity.Artist.Id != original.Artist.Id)
@@ -74,6 +74,8 @@ namespace DAL.Repositories
                     original.Artist = entity.Artist;
                 }
             }
+
+            // Update genre reference
             if (entity.Genre != null)
             {
                 if (original.Genre == null || entity.Genre.Id != original.Genre.Id)

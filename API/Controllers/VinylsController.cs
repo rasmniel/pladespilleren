@@ -28,18 +28,34 @@ namespace API.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post([FromBody]Vinyl vinyl)
         {
+            if (vinyl != null)
+            {
+                Vinyl newVinyl = Repo.Create(vinyl);
+                return Request.CreateResponse(HttpStatusCode.Created, newVinyl);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, vinyl);
+            }
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Vinyl vinyl)
         {
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
+            Vinyl toDelete = Repo.Read(id);
+            if (toDelete != null)
+            {
+                Repo.Delete(toDelete);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 }

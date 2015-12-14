@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using BE;
 using NUnit.Framework;
+using System.Net;
 
 namespace Tests
 {
@@ -46,5 +47,40 @@ namespace Tests
                 Assert.False(vinyl.Artist == null || vinyl.Genre == null);
             }
         }
+
+        [Test]
+        public void PostVinylTest()
+        {
+            Vinyl testVinyl = new Vinyl()
+            {
+                Id = 0,
+                Name = "Test",
+                Price = 100,
+                Year = 1999
+            };
+
+            HttpResponseMessage response = client.PostAsJsonAsync("api/vinyls/", testVinyl).Result;
+            Vinyl created = response.Content.ReadAsAsync<Vinyl>().Result;
+            Assert.AreNotEqual(0, created.Id);
+        }
+
+        [Test]
+        public void DeleteVinylTest()
+        {
+            Vinyl testVinyl = new Vinyl()
+            {
+                Id = 0,
+                Name = "Test",
+                Price = 100,
+                Year = 1999
+            };
+
+            HttpResponseMessage postResponse = client.PostAsJsonAsync("api/vinyls/", testVinyl).Result;
+            Vinyl created = postResponse.Content.ReadAsAsync<Vinyl>().Result;
+
+            HttpResponseMessage deleteResponse = client.DeleteAsync("api/vinyls/" + created.Id).Result;
+            Assert.AreEqual(HttpStatusCode.OK, deleteResponse.StatusCode);
+        }
+
     }
 }
