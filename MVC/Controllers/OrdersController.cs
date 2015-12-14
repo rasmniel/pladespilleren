@@ -41,14 +41,5 @@ namespace MVC.Controllers
             OrderRepo.Delete(order);
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                OrderRepo.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

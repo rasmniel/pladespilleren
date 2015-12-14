@@ -145,17 +145,5 @@ namespace MVC.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                VinylRepo.Dispose();
-                ArtistRepo.Dispose();
-                GenreRepo.Dispose();
-                OrderRepo.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
