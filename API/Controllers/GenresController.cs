@@ -8,6 +8,9 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller to manage genres.
+    /// </summary>
     public class GenresController : ApiController
     {
         private readonly GenreRepository Repo = DALFacade.GetGenreRepository();

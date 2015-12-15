@@ -8,6 +8,9 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller to manage artists.
+    /// </summary>
     public class ArtistsController : ApiController
     {
         private readonly ArtistRepository Repo = DALFacade.GetArtistRepository();

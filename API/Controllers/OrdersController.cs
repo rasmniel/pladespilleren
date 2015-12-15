@@ -8,6 +8,9 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller to manage orders.
+    /// </summary>
     public class OrdersController : ApiController
     {
         private readonly OrderRepository Repo = DALFacade.GetOrderRepository();

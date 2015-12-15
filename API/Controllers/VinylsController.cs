@@ -9,6 +9,9 @@ using DAL.Repositories;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller to manage vinyls.
+    /// </summary>
     public class VinylsController : ApiController
     {
         private readonly VinylRepository Repo = DALFacade.GetVinylRepository();
