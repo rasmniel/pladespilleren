@@ -153,6 +153,16 @@ namespace DAL.Db
 
                 new Vinyl()
                 {
+                    Artist = artists[14],
+                    Name = "Excursion Demise",
+                    CoverUrl = "http://azintex-music.com/published/publicdata/AZINTEXMWA/attachments/SC/products_pictures/Invocator%20-%20Excursion%20Demise_enl.jpg",
+                    Genre = genres[1],
+                    Price = 190.99,
+                    Year = 1991
+                },
+
+                new Vinyl()
+                {
                     Artist = artists[10],
                     Name = "Slaughter of the Soul",
                     CoverUrl = "https://c2.staticflickr.com/4/3573/3770275478_07eb5fd206.jpg",
@@ -190,17 +200,7 @@ namespace DAL.Db
                     Price = 199.75,
                     Year = 2014
                 },
-
-                new Vinyl()
-                {
-                    Artist = artists[14],
-                    Name = "Excursion Demise",
-                    CoverUrl = "http://azintex-music.com/published/publicdata/AZINTEXMWA/attachments/SC/products_pictures/Invocator%20-%20Excursion%20Demise_enl.jpg",
-                    Genre = genres[1],
-                    Price = 190.99,
-                    Year = 1991
-                },
-
+                
                 new Vinyl()
                 {
                     Artist = artists[15],

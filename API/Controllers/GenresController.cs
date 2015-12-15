@@ -61,7 +61,7 @@ namespace API.Controllers
                 Repo.Delete(toDelete);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)

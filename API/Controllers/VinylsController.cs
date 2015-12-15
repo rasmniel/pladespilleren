@@ -13,7 +13,10 @@ namespace API.Controllers
     {
         private readonly VinylRepository Repo = DALFacade.GetVinylRepository();
 
-        // GET api/vinyls
+        /// <summary>
+        /// Get all vinyls.
+        /// </summary>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Get()
         {
             IEnumerable<Vinyl> vinyls = Repo.ReadAll();
@@ -24,7 +27,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // GET api/vinyls/5
+        /// <summary>
+        /// Get a vinyl.
+        /// </summary>
+        /// <param name="id">Id of the vinyl to get.</param>
+        /// <returns>Http response including a vinyl.</returns>
         public HttpResponseMessage Get(int id)
         {
             Vinyl vinyl = Repo.Read(id);
@@ -35,7 +42,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // POST api/vinyls
+        /// <summary>
+        /// Create a vinyl.
+        /// </summary>
+        /// <param name="vinyl">The vinyl to create.</param>
+        /// <returns>Http response including the newly created vinyl.</returns>
         public HttpResponseMessage Post([FromBody]Vinyl vinyl)
         {
             if (vinyl != null)
@@ -46,7 +57,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, vinyl);
         }
 
-        // PUT api/values/5
+        /// <summary>
+        /// Update a vinyl.
+        /// </summary>
+        /// <param name="vinyl">The vinyl to update.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Put([FromBody]Vinyl vinyl)
         {
             if (vinyl != null)
@@ -57,7 +72,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // DELETE api/values/5
+        /// <summary>
+        /// Delete a vinyl.
+        /// </summary>
+        /// <param name="id">Id of the vinyl to delete.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Delete(int id)
         {
             Vinyl toDelete = Repo.Read(id);
@@ -66,7 +85,7 @@ namespace API.Controllers
                 Repo.Delete(toDelete);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)

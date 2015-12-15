@@ -12,14 +12,21 @@ namespace API.Controllers
     {
         private readonly OrderRepository Repo = DALFacade.GetOrderRepository();
 
-        // GET api/orders
+        /// <summary>
+        /// Get all orders.
+        /// </summary>
+        /// <returns>Http response including all orders.</returns>
         public HttpResponseMessage Get()
         {
             IEnumerable<Order> orders = Repo.ReadAll();
             return Request.CreateResponse(HttpStatusCode.OK, orders);
         }
 
-        // GET api/orders/5
+        /// <summary>
+        /// Get an order.
+        /// </summary>
+        /// <param name="id">Id of the order to get.</param>
+        /// <returns>Http response including an order.</returns>
         public HttpResponseMessage Get(int id)
         {
             Order order = Repo.Read(id);
@@ -30,7 +37,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // POST api/orders
+        /// <summary>
+        /// Create an order.
+        /// </summary>
+        /// <param name="order">Order to create.</param>
+        /// <returns>Http response including the newly created order.</returns>
         public HttpResponseMessage Post([FromBody]Order order)
         {
             if (order != null)
@@ -41,7 +52,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, order);
         }
 
-        // PUT api/orders/5
+        /// <summary>
+        /// Update an existing order.
+        /// </summary>
+        /// <param name="order">Order to update.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Put([FromBody]Order order)
         {
             if (order != null)
@@ -52,7 +67,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // DELETE api/orders/5
+        /// <summary>
+        /// Delete an order.
+        /// </summary>
+        /// <param name="id">Id of the order to delete.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Delete(int id)
         {
             Order toDelete = Repo.Read(id);
@@ -61,7 +80,7 @@ namespace API.Controllers
                 Repo.Delete(toDelete);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound);
+            return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
         protected override void Dispose(bool disposing)
