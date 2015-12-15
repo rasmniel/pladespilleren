@@ -4,46 +4,43 @@ using System.Net.Http;
 using System.Web.Mvc;
 using BE;
 using Microsoft.AspNet.Identity;
-using MVC.infrastructure;
 using MVC.Models;
 using System.Collections.Generic;
+using MVC.Infrastructure;
 
 namespace MVC.Controllers
 {
     public class VinylsController : Controller
     {
-        private readonly VinylsGateway VinylsGateway = new VinylsGateway();
-        private readonly GenresGateway GenresGateway = new GenresGateway();
-        private readonly ArtistsGateway ArtistsGateway = new ArtistsGateway();
-        private readonly OrdersGateway OrdersGateway = new OrdersGateway();
+        private readonly GenericGateway<Vinyl> VinylsGateway = new GenericGateway<Vinyl>();
+        private readonly GenericGateway<Genre> GenresGateway = new GenericGateway<Genre>();
+        private readonly GenericGateway<Artist> ArtistsGateway = new GenericGateway<Artist>();
+        private readonly GenericGateway<Order> OrdersGateway = new GenericGateway<Order>();
 
         public ActionResult Index()
         {
             HttpResponseMessage response = VinylsGateway.ReadAll();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var vinyls = response.Content.ReadAsAsync<IEnumerable<Vinyl>>().Result;
-                return View(vinyls);
-            }
-            return new HttpStatusCodeResult(response.StatusCode);
+            if (!response.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(response.StatusCode);
+            var vinyls = response.Content.ReadAsAsync<IEnumerable<Vinyl>>().Result;
+            return View(vinyls);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(Vinyl vinyl)
         {
             CreateViewModel model = new CreateViewModel();
-            model.Vinyl = new Vinyl();
+            model.Vinyl = vinyl ?? new Vinyl();
+
             HttpResponseMessage artistResponse = ArtistsGateway.ReadAll();
-            if (artistResponse.StatusCode == HttpStatusCode.OK)
-            {
-                model.Artists = artistResponse.Content.ReadAsAsync<IEnumerable<Artist>>().Result;
-            }
+            if (!artistResponse.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(artistResponse.StatusCode);
+            model.Artists = artistResponse.Content.ReadAsAsync<IEnumerable<Artist>>().Result;
 
             HttpResponseMessage genreResponse = GenresGateway.ReadAll();
-            if (genreResponse.StatusCode == HttpStatusCode.OK)
-            {
-                model.Genres = genreResponse.Content.ReadAsAsync<IEnumerable<Genre>>().Result;
-            }
+            if (!genreResponse.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(genreResponse.StatusCode);
+            model.Genres = genreResponse.Content.ReadAsAsync<IEnumerable<Genre>>().Result;
+
             return View(model);
         }
 
@@ -54,53 +51,43 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 HttpResponseMessage artistResponse = ArtistsGateway.Read(artistId);
-                if (artistResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    vinyl.Artist = artistResponse.Content.ReadAsAsync<Artist>().Result;
-                }
+                if (!artistResponse.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(artistResponse.StatusCode);
+                vinyl.Artist = artistResponse.Content.ReadAsAsync<Artist>().Result;
 
                 HttpResponseMessage genreResponse = GenresGateway.Read(genreId);
-                if (genreResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    vinyl.Genre = genreResponse.Content.ReadAsAsync<Genre>().Result;
-                }
+                if (!genreResponse.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(genreResponse.StatusCode);
+                vinyl.Genre = genreResponse.Content.ReadAsAsync<Genre>().Result;
 
                 HttpResponseMessage response = VinylsGateway.Create(vinyl);
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-            // TEMP. NON CRASH FIX
-            CreateViewModel model = new CreateViewModel();
-            model.Vinyl = vinyl;
-            model.Artists = new List<Artist>();
-            model.Genres = new List<Genre>();
+                if (!response.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(genreResponse.StatusCode);
 
-            return View(model);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Create", vinyl);
         }
 
         public ActionResult Edit(int? id)
         {
-            HttpResponseMessage response = VinylsGateway.Read(id);
-            var vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-            if (vinyl == null)
-            {
-                return new HttpStatusCodeResult(response.StatusCode);
-            }
             EditViewModel model = new EditViewModel();
-            model.Vinyl = vinyl;
+
+            HttpResponseMessage response = VinylsGateway.Read(id);
+            if (!response.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(response.StatusCode);
+            model.Vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
+
             HttpResponseMessage artistResponse = ArtistsGateway.ReadAll();
-            if (artistResponse.StatusCode == HttpStatusCode.OK)
-            {
-                model.Artists = artistResponse.Content.ReadAsAsync<IEnumerable<Artist>>().Result;
-            }
+            if (!artistResponse.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(artistResponse.StatusCode);
+            model.Artists = artistResponse.Content.ReadAsAsync<IEnumerable<Artist>>().Result;
 
             HttpResponseMessage genreResponse = GenresGateway.ReadAll();
-            if (genreResponse.StatusCode == HttpStatusCode.OK)
-            {
-                model.Genres = genreResponse.Content.ReadAsAsync<IEnumerable<Genre>>().Result;
-            }
+            if (!genreResponse.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(genreResponse.StatusCode);
+            model.Genres = genreResponse.Content.ReadAsAsync<IEnumerable<Genre>>().Result;
+
             return View(model);
         }
 
@@ -111,21 +98,18 @@ namespace MVC.Controllers
             if (ModelState.IsValid)
             {
                 HttpResponseMessage artistResponse = ArtistsGateway.Read(artistId);
-                if (artistResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    vinyl.Artist = artistResponse.Content.ReadAsAsync<Artist>().Result;
-                }
+                if (!artistResponse.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(artistResponse.StatusCode);
+                vinyl.Artist = artistResponse.Content.ReadAsAsync<Artist>().Result;
 
                 HttpResponseMessage genreResponse = GenresGateway.Read(genreId);
-                if (genreResponse.StatusCode == HttpStatusCode.OK)
-                {
-                    vinyl.Genre = genreResponse.Content.ReadAsAsync<Genre>().Result;
-                }
+                if (!artistResponse.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(genreResponse.StatusCode);
+                vinyl.Genre = genreResponse.Content.ReadAsAsync<Genre>().Result;
+
                 HttpResponseMessage response = VinylsGateway.Update(vinyl);
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
+                if (!response.IsSuccessStatusCode)
                     return new HttpStatusCodeResult(response.StatusCode);
-                }
             }
             return RedirectToAction("Index");
         }
@@ -133,22 +117,18 @@ namespace MVC.Controllers
         public ActionResult Details(int? id)
         {
             HttpResponseMessage response = VinylsGateway.Read(id);
-            var vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-            if (vinyl == null)
-            {
+            if (!response.IsSuccessStatusCode)
                 return new HttpStatusCodeResult(response.StatusCode);
-            }
+            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
             return View(vinyl);
         }
 
         public ActionResult Delete(int? id)
         {
             HttpResponseMessage response = VinylsGateway.Read(id);
-            var vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-            if (vinyl == null)
-            {
+            if (!response.IsSuccessStatusCode)
                 return new HttpStatusCodeResult(response.StatusCode);
-            }
+            Vinyl vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
             return View(vinyl);
         }
 
@@ -158,16 +138,14 @@ namespace MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             HttpResponseMessage response = VinylsGateway.Read(id);
+            if (!response.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(response.StatusCode);
             var vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-            if (vinyl == null)
-            {
-                return new HttpStatusCodeResult(response.StatusCode);
-            }
-            HttpResponseMessage deletedResponse = VinylsGateway.Delete(vinyl.Id);
-            if (deletedResponse.StatusCode != HttpStatusCode.OK)
-            {
-                return new HttpStatusCodeResult(response.StatusCode);
-            }
+
+            HttpResponseMessage deleteResponse = VinylsGateway.Delete(vinyl.Id);
+            if (!deleteResponse.IsSuccessStatusCode)
+                return new HttpStatusCodeResult(deleteResponse.StatusCode);
+
             return RedirectToAction("Index");
         }
 
@@ -175,25 +153,23 @@ namespace MVC.Controllers
         {
             BuyViewModel model = new BuyViewModel();
             HttpResponseMessage response = VinylsGateway.Read(id);
-            var vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
-            if (vinyl == null)
-            {
+            if (!response.IsSuccessStatusCode)
                 return new HttpStatusCodeResult(response.StatusCode);
-            }
-            model.Vinyl = vinyl;
+            model.Vinyl = response.Content.ReadAsAsync<Vinyl>().Result;
+
             model.Completed = completed ?? false;
             if (model.Completed)
             {
-                Order order = new Order();
-                order.Date = DateTime.Now;
-                order.Vinyl = model.Vinyl;
-                order.UserId = User.Identity.GetUserId();
-                order.UserName = User.Identity.GetUserName();
-                HttpResponseMessage orderResponse = OrdersGateway.Create(order);
-                if (orderResponse.StatusCode != HttpStatusCode.OK)
+                Order order = new Order()
                 {
-                    return new HttpStatusCodeResult(response.StatusCode);
-                }
+                    Date = DateTime.Now,
+                    Vinyl = model.Vinyl,
+                    UserId = User.Identity.GetUserId(),
+                    UserName = User.Identity.GetUserName()
+                };
+                HttpResponseMessage orderResponse = OrdersGateway.Create(order);
+                if (!orderResponse.IsSuccessStatusCode)
+                    return new HttpStatusCodeResult(orderResponse.StatusCode);
             }
             return View(model);
         }

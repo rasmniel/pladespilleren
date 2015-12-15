@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using BE;
 
-namespace MVC.infrastructure
+namespace MVC.Tnfrastructure
 {
     public class OrdersGateway : SuperGateway
     {

@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Configuration;
 
-namespace MVC.infrastructure
+namespace MVC.Tnfrastructure
 {
     public class SuperGateway
     {
