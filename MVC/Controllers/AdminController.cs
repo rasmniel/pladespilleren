@@ -90,7 +90,7 @@ namespace MVC.Controllers
             var vinyls = vinylResponse.Content.ReadAsAsync<IEnumerable<Vinyl>>().Result;
             foreach (Vinyl v in vinyls)
             {
-                if (v.Artist.Id == artist.Id)
+                if (v.Artist?.Id == artist.Id)
                 {
                     v.Artist = null;
                     HttpResponseMessage updateResponse = VinylsGateway.Update(v);
@@ -119,7 +119,7 @@ namespace MVC.Controllers
             var vinyls = vinylResponse.Content.ReadAsAsync<IEnumerable<Vinyl>>().Result;
             foreach (Vinyl v in vinyls)
             {
-                if (v.Genre.Id == genre.Id)
+                if (v.Genre?.Id == genre.Id)
                 {
                     v.Genre = null;
                     HttpResponseMessage updateResponse = VinylsGateway.Update(v);

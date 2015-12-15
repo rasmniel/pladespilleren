@@ -75,6 +75,10 @@ namespace DAL.Repositories
                     original.Artist = entity.Artist;
                 }
             }
+            else
+            {
+                original.Artist = null;
+            }
 
             // Update genre reference
             if (entity.Genre != null)
@@ -84,6 +88,10 @@ namespace DAL.Repositories
                     db.Genres.Attach(entity.Genre);
                     original.Genre = entity.Genre;
                 }
+            }
+            else
+            {
+                original.Genre = null;
             }
 
             db.SaveChanges();
