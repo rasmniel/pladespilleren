@@ -266,7 +266,7 @@
     <Content Include="Views\Info\Contact.cshtml" />
     <Content Include="Views\Vinyls\Buy.cshtml" />
     <Content Include="Views\Shared\Price.cshtml" />
-    <Content Include="Views\Vinyls\Edit.cshtml" />
+    <Content Include="Views\Shared\Edit.cshtml" />
     <Content Include="Views\Vinyls\Delete.cshtml" />
     <Content Include="Views\Vinyls\Create.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />

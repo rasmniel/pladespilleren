@@ -12,14 +12,21 @@ namespace API.Controllers
     {
         private readonly ArtistRepository Repo = DALFacade.GetArtistRepository();
 
-        // GET api/artists
+        /// <summary>
+        /// Get all artists.
+        /// </summary>
+        /// <returns>Http response containing all artists.</returns>
         public HttpResponseMessage Get()
         {
             IEnumerable<Artist> artists = Repo.ReadAll();
             return Request.CreateResponse(HttpStatusCode.OK, artists);
         }
 
-        // GET api/artists/5
+        /// <summary>
+        /// An artist with the specified id.
+        /// </summary>
+        /// <param name="id">Id of artist.</param>
+        /// <returns>Http response containing the specified artist.</returns>
         public HttpResponseMessage Get(int id)
         {
             Artist artist = Repo.Read(id);
@@ -30,7 +37,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // POST api/artists
+        /// <summary>
+        /// Create an artist.
+        /// </summary>
+        /// <param name="artist">Artist to create.</param>
+        /// <returns>Http response containing newly created artist.</returns>
         public HttpResponseMessage Post([FromBody]Artist artist)
         {
             if (artist != null)
@@ -41,7 +52,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, artist);
         }
 
-        // PUT api/artists/5
+        /// <summary>
+        /// Update an existing artist.
+        /// </summary>
+        /// <param name="artist">Artist to update.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Put([FromBody]Artist artist)
         {
             if (artist != null)
@@ -52,7 +67,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // DELETE api/artists/5
+        /// <summary>
+        /// Delete artist by id.
+        /// </summary>
+        /// <param name="id">Id of artist to delete.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Delete(int id)
         {
             Artist toDelete = Repo.Read(id);

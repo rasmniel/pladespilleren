@@ -1,0 +1,150 @@
+﻿body {
+    background-image: url('/pictures/Wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+* {
+    font-size: 1.05em;
+}
+
+p {
+    color: ghostwhite;
+}
+
+dt, th, a {
+    color: greenyellow;
+}
+
+    a:hover {
+        color: greenyellow;
+        text-decoration: none;
+        border-radius: 50%;
+    }
+
+div {
+    color: ghostwhite;
+}
+
+.navigation {
+    position: relative;
+    top: 0.5em;
+    font-size: 1.2em;
+    font-weight: 800;
+}
+
+.content {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.account-icon {
+    margin: 0;
+    height: 4em;
+    background-color: whitesmoke;
+    border-radius: 50%;
+    border: 0.2em solid greenyellow;
+    padding: 0.2em;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+    .account-icon:hover {
+        -webkit-transform: rotate(-20deg);
+        -moz-transform: rotate(-20deg);
+        -o-transform: rotate(-20deg);
+        -ms-transform: rotate(-20deg);
+        transform: rotate(-20deg);
+    }
+
+.bar {
+    height: 3em;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footerbar {
+    position: fixed;
+    bottom: 0;
+    background: #4d4d4d;
+}
+
+footer p {
+    position: relative;
+    color: black;
+    width: 100%;
+    text-align: center;
+    top: -0.1em;
+}
+
+#pladespiller {
+    position: fixed;
+    bottom: 3.7em;
+    right: 0.5em;
+    width: 25em;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+#vinyler {
+    position: fixed;
+    bottom: 3.6em;
+    left: -17.3em;
+    width: 33em;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.vinyl-table {
+    font-size: 1.1em;
+}
+
+.albumCover {
+    margin: 0;
+    height: 6em;
+    border-radius: 50%;
+    background-color: whitesmoke;
+    border: 0.2em solid greenyellow;
+    padding: 0.2em;
+}
+
+.details-albumCover {
+    width: 27em;
+}
+
+#information-logo {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 8em;
+    top: 3em;
+}
+
+#information-text p {
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.2em;
+    font-style: italic;
+    color: greenyellow;
+}
+
+.contact-header {
+    color: white;
+}
+
+#logged-in-name {
+    float: right;
+    font-family: monospace;
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+.purchased {
+    color: greenyellow;
+    text-align: center;
+}

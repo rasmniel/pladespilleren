@@ -12,14 +12,21 @@ namespace API.Controllers
     {
         private readonly GenreRepository Repo = DALFacade.GetGenreRepository();
 
-        // GET api/genres
+        /// <summary>
+        /// Get all genres.
+        /// </summary>
+        /// <returns>Http response containing all genres.</returns>
         public HttpResponseMessage Get()
         {
             IEnumerable<Genre> genres = Repo.ReadAll();
             return Request.CreateResponse(HttpStatusCode.OK, genres);
         }
 
-        // GET api/genres/5
+        /// <summary>
+        /// Get a specified genre.
+        /// </summary>
+        /// <param name="id">Id of genre.</param>
+        /// <returns>Http response containing the specified genre.</returns>
         public HttpResponseMessage Get(int id)
         {
             Genre genre = Repo.Read(id);
@@ -30,7 +37,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // POST api/genres
+        /// <summary>
+        /// Create a genre.
+        /// </summary>
+        /// <param name="genre">Genre to create.</param>
+        /// <returns>Http response containing the newly created genre.</returns>
         public HttpResponseMessage Post([FromBody]Genre genre)
         {
             if (genre != null)
@@ -41,7 +52,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest, genre);
         }
 
-        // PUT api/genres/5
+        /// <summary>
+        /// Update an existing genre.
+        /// </summary>
+        /// <param name="genre">Genre to update.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Put([FromBody]Genre genre)
         {
             if (genre != null)
@@ -52,7 +67,11 @@ namespace API.Controllers
             return Request.CreateResponse(HttpStatusCode.BadRequest);
         }
 
-        // DELETE api/genres/5
+        /// <summary>
+        /// Delete genre by id.
+        /// </summary>
+        /// <param name="id">Id of genre to delete.</param>
+        /// <returns>Http response.</returns>
         public HttpResponseMessage Delete(int id)
         {
             Genre toDelete = Repo.Read(id);
