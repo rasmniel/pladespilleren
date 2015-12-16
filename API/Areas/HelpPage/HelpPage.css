@@ -114,6 +114,7 @@
 .help-page .h1 {
     font-size: 36px;
     line-height: normal;
+    color: greenyellow;
 }
 
 .help-page h2,
@@ -125,6 +126,7 @@
 .help-page h3,
 .help-page .h3 {
     font-size: 20px;
+    color: greenyellow;
 }
 
 #body.help-page {
@@ -134,6 +136,6 @@
 }
 
 .help-page a {
-    color: #0000EE;
+    color: yellowgreen;
     text-decoration: none;
 }

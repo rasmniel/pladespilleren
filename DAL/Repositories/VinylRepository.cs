@@ -27,22 +27,6 @@ namespace DAL.Repositories
                 .ToList();
         }
 
-        public IEnumerable<Vinyl> ReadBrokenVinyls()
-        {
-            return db.Vinyls
-                .Include(vinyl => vinyl.Artist)
-                .Include(vinyl => vinyl.Genre)
-                .Where(vinyl => vinyl.Artist == null || vinyl.Genre == null);
-        }
-
-        public IEnumerable<Vinyl> ReadGoodVinyls()
-        {
-            return db.Vinyls
-                .Include(vinyl => vinyl.Artist)
-                .Include(vinyl => vinyl.Genre)
-                .Where(vinyl => vinyl.Artist != null && vinyl.Genre != null);
-        }
-
         public Vinyl Create(Vinyl entity)
         {
             db.Vinyls.Add(entity);
@@ -62,7 +46,7 @@ namespace DAL.Repositories
                 .Include(vinyl => vinyl.Genre)
                 .Include(vinyl => vinyl.Artist)
                 .FirstOrDefault(vinyl => vinyl.Id == entity.Id);
-            
+
             // Set all values from new entity to the old (except object references)
             db.Entry(original).CurrentValues.SetValues(entity);
 
