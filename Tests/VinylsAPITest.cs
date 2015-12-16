@@ -69,7 +69,7 @@ namespace Tests
             }
         }
 
-        // Read the instanciated vinyl test
+        // Read the instantiated vinyl test
         [Test]
         public void ReadVinylTest()
         {

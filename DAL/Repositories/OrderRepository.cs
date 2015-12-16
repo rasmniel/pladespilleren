@@ -1,10 +1,7 @@
 ﻿using DAL.Db;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BE;
 
 namespace DAL.Repositories
@@ -25,15 +22,6 @@ namespace DAL.Repositories
         {
             return db.Orders
                 .Include(order => order.Vinyl)
-                .Include(order => order.Vinyl.Artist)
-                .ToList();
-        }
-
-        public IEnumerable<Order> ReadCustomerOrders(string id)
-        {
-            return db.Orders
-                .Include(order => order.Vinyl)
-                .Where(order => order.UserId == id)
                 .Include(order => order.Vinyl.Artist)
                 .ToList();
         }
