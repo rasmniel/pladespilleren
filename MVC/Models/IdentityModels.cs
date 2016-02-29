@@ -48,6 +48,7 @@ namespace MVC.Models
             string regularUser = "RegularUser";
 
 
+            // create roles
             var roleStore = new RoleStore<IdentityRole>(context);
             var roleManager = new RoleManager<IdentityRole>(roleStore);
 
@@ -60,6 +61,7 @@ namespace MVC.Models
             var userIdentityRole = new IdentityRole { Name = userRole };
             roleManager.Create(userIdentityRole);
 
+            // create users
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 

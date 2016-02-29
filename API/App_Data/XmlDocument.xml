@@ -481,6 +481,11 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:API.Controllers.ArtistsController">
+            <summary>
+            Controller to manage artists.
+            </summary>
+        </member>
         <member name="M:API.Controllers.ArtistsController.Get">
             <summary>
             Get all artists.
@@ -514,6 +519,11 @@
             </summary>
             <param name="id">Id of artist to delete.</param>
             <returns>Http response.</returns>
+        </member>
+        <member name="T:API.Controllers.GenresController">
+            <summary>
+            Controller to manage genres.
+            </summary>
         </member>
         <member name="M:API.Controllers.GenresController.Get">
             <summary>
@@ -549,6 +559,11 @@
             <param name="id">Id of genre to delete.</param>
             <returns>Http response.</returns>
         </member>
+        <member name="T:API.Controllers.OrdersController">
+            <summary>
+            Controller to manage orders.
+            </summary>
+        </member>
         <member name="M:API.Controllers.OrdersController.Get">
             <summary>
             Get all orders.
@@ -582,6 +597,11 @@
             </summary>
             <param name="id">Id of the order to delete.</param>
             <returns>Http response.</returns>
+        </member>
+        <member name="T:API.Controllers.VinylsController">
+            <summary>
+            Controller to manage vinyls.
+            </summary>
         </member>
         <member name="M:API.Controllers.VinylsController.Get">
             <summary>

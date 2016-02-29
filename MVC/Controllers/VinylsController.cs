@@ -61,11 +61,11 @@ namespace MVC.Controllers
 
                 HttpResponseMessage response = VinylsGateway.Create(vinyl);
                 if (!response.IsSuccessStatusCode)
-                    return new HttpStatusCodeResult(genreResponse.StatusCode);
+                    return new HttpStatusCodeResult(response.StatusCode);
 
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Create", vinyl);
+            return RedirectToAction("Create", vinyl); // return vinyl with errors to create view again
         }
 
         public ActionResult Edit(int? id)

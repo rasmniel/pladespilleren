@@ -11,12 +11,12 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) @*hidden field with error message for whole form*@
         <div class="form-group">
-            @Html.LabelFor(model => model.Vinyl.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Vinyl.Name, htmlAttributes: new { @class = "control-label col-md-2" }) @*name of vinyl domain model "album"*@
             <div class="col-md-8">
-                @Html.EditorFor(model => model.Vinyl.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Vinyl.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Vinyl.Name, new { htmlAttributes = new { @class = "form-control" } }) @*input field*@
+                @Html.ValidationMessageFor(model => model.Vinyl.Name, "", new { @class = "text-danger" }) @*hidden field with error message for editor*@
             </div>
         </div>
 
